@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+
+import React from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { ImLocation2 } from "react-icons/im";
+// import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const nav=useHistory();
+    const onBtnClick=()=>{
+        nav.push('/detail');
+    }
   return (
     <>
+      <button onClick={onBtnClick}>상세페이지로</button>
       <Container>
         <Box>
           <Map>
@@ -102,7 +110,6 @@ const Soon = styled.div`
   & svg {
     cursor: pointer;
   }
-
   :focus svg {
     color: #e795c4;
     opacity: 1;
