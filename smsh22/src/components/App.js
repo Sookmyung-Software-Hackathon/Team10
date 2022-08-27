@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AppRouter from "./Router";
 import { authService } from "../fbase";
+import { deleteUser } from "firebase/auth";
 
 function App() {
   const [init, setInit] = useState(false);
@@ -15,9 +16,15 @@ function App() {
           displayName: user.displayName,
           updateProfile: (args) => user.updateProfile(args),
         });
-        if (user.displayName === null) {
-          const name = user.email.split("@")[0];
-          user.displayName = name;
+        var email = user.email;
+        var emailIndex = email.indexOf("@") + 1;
+        var emailform = email.substring(emailIndex);
+        if (emailform !== "sookmyung.ac.kr") {
+          alert("숙명 구글메일로만 로그인 가능합니다.");
+          deleteUser(user);
+          setUserObj(null);
+          setIsLoggedIn(false);
+
         }
       } else {
         setIsLoggedIn(false);
