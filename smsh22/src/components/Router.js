@@ -1,7 +1,7 @@
 import React from "react";
 import {
   HashRouter as Router,
-  // Redirect,
+  Redirect,
   Route,
   // Routes,
   Switch,
@@ -18,26 +18,24 @@ import "../style.css";
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
     <Router>
-      <Route exact path="/">
-        <Home userObj={userObj} />
-      </Route>
       {/* {isLoggedIn && <Navigation userObj={userObj} />} */}
       <Switch>
-      {/* <Routes> */}
+        {/* <Routes> */}
         {isLoggedIn ? (
           <>
-            <Route exact path="/" >
+            <Route exact path="/">
               <Home userObj={userObj} />
             </Route>
-            <Route exact path="/detail" >
-              <Detail userObj={userObj}/>
+            <Route exact path="/detail">
+              <Detail userObj={userObj} />
             </Route>
-            {/* <Redirect from="*" to="/"></Redirect> */}
           </>
         ) : (
           <>
-            <Route exact path="/" element={<Auth />} />
-            {/* <Redirect from="*" to="/"></Redirect> */}
+            <Route exact path="/">
+              <Auth />
+            </Route>
+            <Redirect from="*" to="/"></Redirect>
           </>
         )}
       </Switch>
