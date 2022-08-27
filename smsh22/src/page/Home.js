@@ -1,74 +1,150 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { ImLocation2 } from "react-icons/im";
+import { dbService } from "../fbase";
 // import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const [numM,setNumM]=useState();
+  const [numL,setNumL]=useState();
+  const [location,setLocation]=useState();
+  const [list,setList]=useState([]);
+  useEffect(()=>{
+    dbService.collection('left').where("l",'!=',null)
+    .onSnapshot((snapshot) => {
+      const listArray = snapshot.docs.map((doc) => ([
+        doc.id,
+        doc.data.m+doc.data.l>0,
+      ]));
+      setList(listArray);
+    })
+    console.log(list);
+},[]);
   const nav=useHistory();
-    const onBtnClick=()=>{
-        nav.push('/detail');
+  const onBtnClick=(e)=>{
+    dbService.doc(`left/${e}`).get()
+    .then((doc) => {
+      setNumM(doc.data().m);
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+    dbService.doc(`left/${e}`).get()
+    .then((doc) => {
+      setNumL(doc.data().l);
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+    if (e==='soon'){
+      setLocation('B1층 카페 건너편 기둥 옆');
     }
+    else if (e==='myung'){
+      setLocation('2층 정순옥 라운지 내');
+    }
+    else if (e==='prime'){
+      setLocation('2층(로비) 엘리베이터 옆');
+    }
+    else if (e==='jin'){
+      setLocation('1층 법학도서관 무인반납함 옆');
+    }
+    else if (e==='sae'){
+      setLocation('1층 엘리베이터 앞 협탁');
+    }
+    else if (e==='student'){
+      setLocation('3층 301호 앞 (계단 옆)');
+    }
+    else if (e==='flaza'){
+      setLocation('B1층 엘리베이터 옆');
+    }
+    else if (e==='science'){
+      setLocation('1층 atm기 앞 계단 부근');
+    }
+    else if (e==='library'){
+      setLocation('6층 열람실 화장실 앞');
+    }
+    else if (e==='art'){
+      setLocation('1층 미니 휴게실 사물함 위');
+    }
+    else if (e==='music'){
+      setLocation('1층 자판기 옆');
+    }
+    else if (e==='medi'){
+      setLocation('1층 엘리베이터 좌측 녹색 사물함 옆');
+    }
+
+      // nav.push('/detail');
+  }
   return (
     <>
-      <button onClick={onBtnClick}>상세페이지로</button>
+      <button onClick={(e)=>onBtnClick(e)}>상세페이지로</button>
       <Container>
         <Box>
           <Map>
             <MapImg src="/image/naver_map.png" alt="사진 출처: NAVER"></MapImg>
-            <Soon>
-              <ImLocation2 />
+            <Soon onClick={()=>onBtnClick('soon')}>
+              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
             </Soon>
-            <Myung>
-              <ImLocation2 />
+            <Myung onClick={()=>onBtnClick('myung')}>
+              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
             </Myung>
-            <Jin>
-              <ImLocation2 />
+            <Jin onClick={()=>onBtnClick('jin')}>
+              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
             </Jin>
-            <Sae>
-              <ImLocation2 />
+            <Sae onClick={()=>onBtnClick('sae')}>
+              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
             </Sae>
-            <Student>
-              <ImLocation2 />
+            <Student onClick={()=>onBtnClick('student')}>
+              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
             </Student>
-            <Prime>
-              <ImLocation2 />
+            <Prime onClick={()=>onBtnClick('prime')}>
+              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
             </Prime>
-            <Flaza>
-              <ImLocation2 />
+            <Flaza onClick={()=>onBtnClick('flaza')}>
+              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
             </Flaza>
-            <Science>
-              <ImLocation2 />
+            <Science onClick={()=>onBtnClick('science')}>
+              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
             </Science>
-            <Library>
-              <ImLocation2 />
+            <Library onClick={()=>onBtnClick('library')}>
+              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
             </Library>
-            <Art>
-              <ImLocation2 />
+            <Art onClick={()=>onBtnClick('art')}>
+              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
             </Art>
-            <Music>
-              <ImLocation2 />
+            <Music onClick={()=>onBtnClick('music')}>
+              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
             </Music>
-            <Medi>
-              <ImLocation2 />
+            <Medi onClick={()=>onBtnClick('medi')}>
+              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
             </Medi>
           </Map>
-          <Pin></Pin>
           <Board>
-            <Title>위치</Title>
-            <SoonB></SoonB>
-            <MyungB></MyungB>
-            <JinB></JinB>
-            <SaeB></SaeB>
-            <StudentB></StudentB>
-            <PrimeB></PrimeB>
-            <FlazaB></FlazaB>
-            <ScienceB></ScienceB>
-            <LibraryB></LibraryB>
-            <ArtB></ArtB>
-            <MusicB></MusicB>
-            <MediB></MediB>
+            <Title>위치: {location} / 중형: {numM}개 / 대형: {numL} 개 </Title>
+          </Board>
+          <Board>
+            <List>
+              {/* {list==null?(
+                <> */}
+                  <div>순헌관 </div>
+                  <div>명신관 </div>
+                  <div>진리관 </div>
+                  <div>새힘관 </div>
+                  <div>학생회관 </div>
+                  <div>프라임관 </div>
+                  <div>르네상스플라자 </div>
+                  <div>과학관 </div>
+                  <div>중앙도서관 </div>
+                  <div>미술대학 </div>
+                  <div>음악대학 </div>
+                  <div>약학대학 </div>
+                {/* </>
+              ):(
+                <>initializing..</>
+              )} */}
+            </List>
           </Board>
         </Box>
       </Container>
@@ -76,6 +152,12 @@ const Home = () => {
   );
 };
 
+const List=styled.div`
+  width: 80rem;
+  display: grid;
+  grid-template-columns: repeat(2,40rem);
+  /* background-color: white; */
+`;
 const Container = styled.div`
   background-color: #aedafc;
   width: 95rem;
@@ -90,39 +172,16 @@ const Map = styled.div`
   position: relative;
 `;
 const MapImg = styled.img`
-  width: 90rem;
+  width: 80rem;
   border-radius: 10px;
   border: 2px solid;
   margin: 3rem 5rem;
 `;
-const Pin = styled.div`
-  background-color: white;
-  width: 5rem;
-  height: 5rem;
-  border-radius: 10px;
-  z-index: 1500;
-`;
-const Soon = styled.div`
-  position: absolute;
-  left: 8.8rem;
-  top: 2.2rem;
-  opacity: 0.5;
-  & svg {
-    cursor: pointer;
-  }
-  :focus svg {
-    color: #e795c4;
-    opacity: 1;
-  }
-  :hover svg {
-    color: #e795c4;
-    opacity: 1;
-  }
-`;
+
 const Myung = styled.div`
   position: absolute;
-  left: 6.2rem;
-  top: 4.2rem;
+  left: 30em;
+  top: 19em;
   opacity: 0.5;
   & svg {
     cursor: pointer;
@@ -137,177 +196,63 @@ const Myung = styled.div`
     opacity: 1;
   }
 `;
-const Jin = styled.div`
-  position: absolute;
-  left: 7rem;
-  top: 2.3rem;
-  opacity: 0.5;
-  & svg {
-    cursor: pointer;
-  }
-
-  :focus svg {
-    color: #e795c4;
-    opacity: 1;
-  }
-  :hover svg {
-    color: #e795c4;
-    opacity: 1;
-  }
+const Soon = styled(Myung)`
+  left: 40em;
+  top: 11em;
 `;
-const Sae = styled.div`
-  position: absolute;
-  left: 6.6rem;
-  top: 5.3rem;
-  opacity: 0.5;
-  & svg {
-    cursor: pointer;
-  }
 
-  :focus svg {
-    color: #e795c4;
-    opacity: 1;
-  }
-  :hover svg {
-    color: #e795c4;
-    opacity: 1;
-  }
+const Jin = styled(Myung)`
+  left: 33em;
+  top: 12em;
+  
 `;
-const Student = styled.div`
-  position: absolute;
-  left: 9.7rem;
-  top: 5.1rem;
+const Sae = styled(Myung)`
+  left: 31em;
+  top: 24em;
   opacity: 0.5;
-  & svg {
-    cursor: pointer;
-  }
-
-  :focus svg {
-    color: #e795c4;
-    opacity: 1;
-  }
-  :hover svg {
-    color: #e795c4;
-    opacity: 1;
-  }
 `;
-const Prime = styled.div`
-  position: absolute;
-  left: 9.4rem;
-  top: 7.3rem;
+const Student = styled(Myung)`
+  left: 43.5em;
+  top: 23em;
   opacity: 0.5;
-  & svg {
-    cursor: pointer;
-  }
-
-  :focus svg {
-    color: #e795c4;
-    opacity: 1;
-  }
-  :hover svg {
-    color: #e795c4;
-    opacity: 1;
-  }
 `;
-const Flaza = styled.div`
-  position: absolute;
-  left: 7.3rem;
-  top: 7.5rem;
+const Prime = styled(Myung)`
+  left: 42.5em;
+  top: 32em;
   opacity: 0.5;
-  & svg {
-    cursor: pointer;
-  }
-
-  :focus svg {
-    color: #e795c4;
-    opacity: 1;
-  }
-  :hover svg {
-    color: #e795c4;
-    opacity: 1;
-  }
 `;
-const Science = styled.div`
-  position: absolute;
-  left: 13rem;
-  top: 7.8rem;
+const Flaza = styled(Myung)`
+  left: 34em;
+  top: 31em;
   opacity: 0.5;
-  & svg {
-    cursor: pointer;
-  }
-
-  :focus svg {
-    color: #e795c4;
-    opacity: 1;
-  }
-  :hover svg {
-    color: #e795c4;
-    opacity: 1;
-  }
 `;
-const Library = styled.div`
-  position: absolute;
-  left: 12rem;
-  top: 9.2rem;
+const Science = styled(Myung)`
+  left: 56em;
+  top: 33em;
   opacity: 0.5;
-  & svg {
-    cursor: pointer;
-  }
-
-  :focus svg {
-    color: #e795c4;
-    opacity: 1;
-  }
-  :hover svg {
-    color: #e795c4;
-    opacity: 1;
-  }
 `;
-const Art = styled.div`
-  position: absolute;
-  left: 9.1rem;
-  top: 8rem;
+const Library = styled(Myung)`
+  left: 53em;
+  top: 39em;
   opacity: 0.5;
-  & svg {
-    cursor: pointer;
-  }
-
-  :focus svg {
-    color: #e795c4;
-    opacity: 1;
-  }
-  :hover svg {
-    color: #e795c4;
-    opacity: 1;
-  }
 `;
-const Music = styled.div`
-  position: absolute;
-  left: 7.3rem;
-  top: 8.7rem;
+const Art = styled(Myung)`
+  left: 42em;
+  top: 34em;
   opacity: 0.5;
-  & svg {
-    cursor: pointer;
-  }
-
-  :focus svg {
-    color: #e795c4;
-    opacity: 1;
-  }
-  :hover svg {
-    color: #e795c4;
-    opacity: 1;
-  }
 `;
-const Medi = styled.div`
-  position: absolute;
-  left: 8.5rem;
-  top: 10rem;
+const Music = styled(Myung)`
+  left: 34.5em;
+  top: 36.5em;
+  opacity: 0.5;
+`;
+const Medi = styled(Myung)`
+  left: 39em;
+  top: 42em;
   opacity: 0.5;
   & svg {
     cursor: pointer;
   }
-
   :focus svg {
     color: #e795c4;
     opacity: 1;
@@ -318,20 +263,15 @@ const Medi = styled.div`
   }
 `;
 const Board = styled.div`
-  display: block;
+  /* display: block; */
+  width: 80rem;
+  background-color: white;
+  margin: auto;
+  margin-bottom: 3rem;
+  border-radius: 10px;
+  padding: 2rem 4rem;
 `;
 const Title = styled.div``;
-const SoonB = styled.div``;
-const MyungB = styled.div``;
-const JinB = styled.div``;
-const SaeB = styled.div``;
-const StudentB = styled.div``;
-const PrimeB = styled.div``;
-const FlazaB = styled.div``;
-const ScienceB = styled.div``;
-const LibraryB = styled.div``;
-const ArtB = styled.div``;
-const MusicB = styled.div``;
-const MediB = styled.div``;
+
 
 export default Home;
