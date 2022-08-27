@@ -3,8 +3,8 @@ import {
   HashRouter as Router,
   // Redirect,
   Route,
-  Routes,
-  // Switch,
+  // Routes,
+  Switch,
 } from "react-router-dom";
 import Auth from "../page/Auth";
 import Detail from "../page/Detail";
@@ -18,22 +18,16 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
     <Router>
       {/* {isLoggedIn && <Navigation userObj={userObj} />} */}
-      {/* <Switch> */}
-      <div
-        // style={{
-        //   maxWidth: 890,
-        //   width: "100%",
-        //   margin: "0 auto",
-        //   marginTop: 80,
-        //   display: "flex",
-        //   justifyContent: "center",
-        // }}
-          >
-      <Routes>
+      <Switch>
+      {/* <Routes> */}
         {isLoggedIn ? (
           <>
-            <Route exact path="/" element={<Home userObj={userObj} />}/>
-            <Route exact path="/detail" element={<Detail/>} />
+            <Route exact path="/" >
+              <Home userObj={userObj} />
+            </Route>
+            <Route exact path="/detail" >
+              <Detail userObj={userObj}/>
+            </Route>
             {/* <Redirect from="*" to="/"></Redirect> */}
           </>
         ) : (
@@ -42,9 +36,8 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
             {/* <Redirect from="*" to="/"></Redirect> */}
           </>
         )}
-      {/* </Switch> */}
-      </Routes>
-      </div>
+      </Switch>
+      {/* </Routes> */}
     </Router>
   );
 };
