@@ -78,7 +78,8 @@ const Home = () => {
 
 const Container = styled.div`
   background-color: #aedafc;
-  width: 350px;
+  width: 95rem;
+  margin:auto;
 `;
 const Box = styled.div`
   display: flex;
@@ -89,11 +90,10 @@ const Map = styled.div`
   position: relative;
 `;
 const MapImg = styled.img`
-  width: 100%;
+  width: 90rem;
   border-radius: 10px;
   border: 2px solid;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 3rem 5rem;
 `;
 const Pin = styled.div`
   background-color: white;

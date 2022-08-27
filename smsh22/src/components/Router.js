@@ -13,7 +13,7 @@ import Home from "../page/Home";
 // import Home from "routes/Home";
 // import Profile from "routes/Profile";
 // import Navigation from "components/Navigation";
-import "../style.css";
+
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
