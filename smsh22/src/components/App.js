@@ -16,15 +16,21 @@ function App() {
           displayName: user.displayName,
           updateProfile: (args) => user.updateProfile(args),
         });
-        var email = user.email;
-        var emailIndex = email.indexOf("@") + 1;
-        var emailform = email.substring(emailIndex);
-        if (emailform !== "sookmyung.ac.kr") {
-          alert("숙명 구글메일로만 로그인 가능합니다.");
-          deleteUser(user);
-          setUserObj(null);
-          setIsLoggedIn(false);
-
+        // var email = user.email;
+        // var emailIndex = email.indexOf("@") + 1;
+        // var emailform = email.substring(emailIndex);
+        // if (emailform !== "sookmyung.ac.kr") {
+        //   alert("숙명 구글메일로만 로그인 가능합니다.");
+        //   deleteUser(user);
+        //   setUserObj(null);
+        //   setIsLoggedIn(false);
+        //   authService.signOut().then(()=>{
+        //     console.log('로그아웃');
+        //   });
+        // }
+        if (user.displayName === null) {
+          const name = user.email.split("@")[0];
+          user.displayName = name;
         }
       } else {
         setIsLoggedIn(false);
