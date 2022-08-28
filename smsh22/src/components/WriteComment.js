@@ -1,42 +1,159 @@
 import React, { useState } from "react";
-import { dbService} from "../fbase";
-import {v4 as uuidv4} from "uuid";
+import { dbService } from "../fbase";
+import { v4 as uuidv4 } from "uuid";
+import styled from "styled-components";
 
-const WriteComment=({userObj})=>{
-    const [comment,setComment]=useState("");
-    const onSubmit= async(event)=>{
-        if (comment===""){
-            return;
-        }
-        event.preventDefault();
-        const commentObj={
-                text: comment, //comment은 state인 comment의 value임
-                createdAt: Date.now(),
-                creatorId:userObj.uid,
-        };
-        await dbService.collection("prime").doc(`${commentObj.createdAt}`).set(commentObj);
-        
-        setComment(""); //빈 문자열로 돌아가게끔
+const WriteComment = ({ userObj }) => {
+  const [comment, setComment] = useState("");
+  const [large, setLarge] = useState("");
+  const [medium, setMedium] = useState("");
+  const [write, setWrite] = useState(false);
+
+  const onWrite = () => {
+    setWrite(true);
+  };
+
+  const onSubmit = async (event) => {
+    if (comment === "") {
+      return;
+    }
+    event.preventDefault();
+    const leftObj = {
+      m: medium,
+      l: large,
+      date: Date.now(),
+      stringDate: new Date(),
     };
-    const onChange=(event)=>{
-        const{target:{value}}=event;
-        setComment(value);
+    await dbService.collection("left").doc("prime").set(leftObj);
+
+    const commentObj = {
+      text: comment, //comment은 state인 comment의 value임
+      createdAt: Date.now(),
+      creatorId: userObj.uid,
     };
-    return(
+    await dbService
+      .collection("prime")
+      .doc(`${commentObj.createdAt}`)
+      .set(commentObj);
+
+    setComment(""); //빈 문자열로 돌아가게끔
+    setLarge("");
+    setMedium("");
+    setWrite(false);
+  };
+  const commentChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setComment(value);
+  };
+
+  const largeChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setLarge(value);
+  };
+
+  const mediumChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setMedium(value);
+  };
+
+  return (
+    <>
+      {write ? (
         <form onSubmit={onSubmit}>
-            <div>
-                <input 
-                    className="factoryInput__input"
-                    value={comment} 
-                    onChange={onChange} 
-                    type="text" 
-                    placeholder="댓글을 작성해주세요." 
-                    maxLength={120} 
-                />
-                <input type="submit" value="&rarr;" className="factoryInput__arrow" />
-                </div>
-            </form>
-    )
-}
+          <Box>
+            <Row>
+              <Sub>대형</Sub>
+              <Content
+                type="text"
+                placeholder="대형 생리대 개수"
+                value={large}
+                onChange={largeChange}
+              />
+            </Row>
+            <Row>
+              <Sub>중형</Sub>
+              <Content
+                type="text"
+                placeholder="중형 생리대 개수"
+                value={medium}
+                onChange={mediumChange}
+              />
+            </Row>
+            <Row>
+              <Sub>댓글</Sub>
+              <ContentRepl
+                value={comment}
+                onChange={commentChange}
+                type="text"
+                placeholder="댓글을 작성해주세요."
+                maxLength={120}
+                rows="2"
+                cols="26"
+              />
+            </Row>
+            <Btn type="submit" value="&rarr;" />
+          </Box>
+        </form>
+      ) : (
+        <Repl onClick={onWrite}>댓글 작성하기</Repl>
+      )}
+    </>
+  );
+};
+
+const Box = styled.div`
+  position: relative;
+  background-color: whitesmoke;
+  margin: 10rem 1rem;
+  border-radius: 10px;
+`;
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding: 2rem;
+`;
+const Sub = styled.div`
+  background-color: whitesmoke;
+  margin: 1rem;
+`;
+const Content = styled.input`
+  border: none;
+  outline-style: none;
+  background-color: whitesmoke;
+  width: fit-content;
+`;
+
+const Btn = styled.input`
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  float: right;
+  border: 1px solid;
+  cursor: pointer;
+  background-color: #aedafc;
+`;
+
+const ContentRepl = styled.textarea`
+  border: none;
+  outline-style: none;
+  background-color: whitesmoke;
+  height: auto;
+  resize: none;
+  overflow: visible;
+`;
+
+const Repl = styled.div`
+  background-color: whitesmoke;
+  padding: 3rem;
+  margin: 10rem auto;
+  border-radius: 10px;
+  text-align: center;
+`;
 
 export default WriteComment;
