@@ -25,10 +25,8 @@ const Home = () => {
     })
 },[]);
   const onBtnClick=(e)=>{
-    console.log(e);
     dbService.doc(`left/${e}`).get()
     .then((doc) => {
-      // console.log(doc.data());
       setNumM(doc.data().m);
       setNumL(doc.data().l);
       setLocation(doc.data().location);
@@ -50,7 +48,6 @@ const Home = () => {
               >
                 <Search 
                   key={each.id}
-                  name={each.name}
                   left={each.left}
                   top={each.top}
                 />

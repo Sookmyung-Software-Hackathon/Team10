@@ -5,7 +5,7 @@ const Each=({list})=>{
     const nav=useHistory();
     const onDetailClick=()=>{
         nav.push({
-            pathname: '/detail',
+            pathname: `/detail/${list.id}`,
             state:{
                 leftm:list.leftm,
                 leftl:list.leftl,

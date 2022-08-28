@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { ImLocation2 } from "react-icons/im";
 import styled from "styled-components";
-import { dbService } from "../fbase";
 
 const EachPin = styled.div`
   position: absolute;
@@ -21,29 +20,11 @@ const EachPin = styled.div`
     opacity: 1;
   }
 `;
-const Board = styled.div`
-  /* display: block; */
-  width: 80rem;
-  background-color: white;
-  margin: auto;
-  margin-bottom: 3rem;
-  border-radius: 10px;
-  padding: 2rem 4rem;
-`;
-const Title = styled.div``;
-const Search=({name,left,top})=>{
+const Search=({left,top})=>{
     return (
-        <>        
         <EachPin left={left} top={top}>
             <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
         </EachPin>
-        {/* {toggle &&
-            <Board>
-                <Title>위치: {name} / 중형: {numM}개 / 대형: {numL} 개 </Title>
-            </Board>
-        } */}
-        </>
-
     )
 }
 
