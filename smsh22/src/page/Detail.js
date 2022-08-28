@@ -102,7 +102,7 @@ const Detail = ({ userObj }) => {
       />
         {/* <FaHome /> */}
       {/* </Home> */}
-      <Where>{ridae.name}</Where>
+      <Where onClick={()=>window.location.reload()}>{ridae.name}</Where>
       {editing ? (
         <form id='update'>
         <Box>

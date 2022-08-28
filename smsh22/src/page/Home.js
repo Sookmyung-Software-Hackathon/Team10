@@ -41,7 +41,7 @@ const Home = () => {
   return (
     <>
       <Container>
-        <Img src="./image/logo.png"/>
+        <Img onClick={()=>window.location.replace('/')} src="./image/logo.png"/>
         <Box>
           <Map>
             <MapImg src="/image/naver_map.png" alt="사진 출처: NAVER"></MapImg>
