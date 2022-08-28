@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   HashRouter as Router,
   Redirect,
@@ -13,7 +13,6 @@ import Home from "../page/Home";
 // import Home from "routes/Home";
 // import Profile from "routes/Profile";
 // import Navigation from "components/Navigation";
-
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
