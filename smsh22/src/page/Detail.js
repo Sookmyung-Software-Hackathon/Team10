@@ -59,19 +59,22 @@ const Detail = ({ userObj }) => {
   const editClick = async (event) => {
     // setTheDate(getFormatDate(theDate.toDate()));
     event.preventDefault();
-    const leftObj = {
-      m: medium,
-      l: large,
-      date: Date.now(),
-      stringDate: new Date(),
-    };
-
-    await dbService.collection("left").doc(id).update(leftObj);
-
-    setLarge("");
-    setMedium("");
-    toggleEditing();
-    // setTheDate(getFormatDate(num.stringDate.toDate()));
+    if (medium==='' || large===''){
+        alert('갯수를 정확히 입력해주세요');
+    }
+    else{
+        const leftObj = {
+            m: medium,
+            l: large,
+            date: Date.now(),
+            stringDate: new Date(),
+          };
+          await dbService.collection("left").doc(id).update(leftObj);
+          setLarge("");
+          setMedium("");
+          toggleEditing();
+          // setTheDate(getFormatDate(num.stringDate.toDate()));
+    }
   };
 
   function getFormatDate(date) {
@@ -91,11 +94,12 @@ const Detail = ({ userObj }) => {
     <Container>
       <Where>{ridae.name}</Where>
       {editing ? (
+        <form id='update'>
         <Box>
           <Row>
             <Sub>대형</Sub>
             <Content
-              type="text"
+              type="number"
               placeholder="대형 생리대 개수"
               value={large}
               required
@@ -105,15 +109,16 @@ const Detail = ({ userObj }) => {
           <Row>
             <Sub>중형</Sub>
             <Content
-              type="text"
+              type="number"
               required
               placeholder="중형 생리대 개수"
               value={medium}
               onChange={mediumChange}
             />
           </Row>
-          <Btn onClick={editClick}>저장</Btn>
+          <Btn type='submit' form='update' onClick={editClick}>저장</Btn>
         </Box>
+        </form>
       ) : (
         <LeftDiv>
           <Left>

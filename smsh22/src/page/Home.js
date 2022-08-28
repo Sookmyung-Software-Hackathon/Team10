@@ -1,16 +1,17 @@
-
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { dbService } from "../fbase";
 import Each from "../components/Each";
 import Search from "../components/Search";
-// import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [numM,setNumM]=useState();
   const [numL,setNumL]=useState();
   const [location,setLocation]=useState('');
   const [list,setList]=useState([]);
+  const onLinkClick=()=>{
+    window.open('https://pf.kakao.com/_ZxixlMs', '_blank');
+  }
   useEffect(()=>{
     dbService.collection('left')
     .onSnapshot((snapshot) => {
@@ -58,28 +59,41 @@ const Home = () => {
                 <Notice>지도에서 원하는 위치를 클릭해주세요</Notice>
               ):(
                 <Title>위치: {location}<br/>
-                  중형: {numM}개<br/>
+                  중형: {numM} 개<br/>
                   대형: {numL} 개
                 </Title>
               )}
             </Board>
           </Map>
-          <Board>
+          <Board1>
             <List>
               {list.map((each)=>(
-                <Each 
+                <Each
                   key={each.id}
                   list={each} 
                 />
               ))}
             </List>
-          </Board>
+          </Board1>
+          <Btn onClick={onLinkClick}>비치된 생리대가 없다면?</Btn>
         </Box>
       </Container>
     </>
   );
 };
-
+const Btn=styled.button`
+  font-size: 4rem;
+  padding: 1rem 2rem;
+  color: #009FF5;
+  /* border: none; */
+  background-color: white;
+  border-radius: 20px;
+  border: none;
+  /* border: 2rem solid #009FF5; */
+  margin: auto;
+  width: 50rem;
+  font-weight: 700;
+`;
 const List=styled.div`
   padding: 2rem 0;
   width: 80rem;
@@ -133,6 +147,9 @@ const Board = styled.div`
   margin-bottom: 3rem;
   border-radius: 10px;
   padding: 2rem 4rem;
+`;
+const Board1=styled(Board)`
+  margin-bottom: 7rem;
 `;
 const Title = styled.div`
   font-size: 3.5rem;
