@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { dbService } from "../fbase";
+import { FaHome } from "react-icons/fa";
 import Comment from "../components/Comment";
 import WriteComment from "../components/WriteComment";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useHistory } from "react-router-dom";
+
 const Detail = ({ userObj }) => {
+  const nav = useHistory();
   const [large, setLarge] = useState("");
   const [medium, setMedium] = useState("");
   const [comments, setComments] = useState([]);
@@ -92,6 +95,13 @@ const Detail = ({ userObj }) => {
 
   return (
     <Container>
+      <Home
+        onClick={() => {
+          nav.push("/");
+        }}
+      >
+        <FaHome />
+      </Home>
       <Where>{ridae.name}</Where>
       {editing ? (
         <form id='update'>
@@ -146,36 +156,66 @@ const Detail = ({ userObj }) => {
 };
 
 const Where = styled.div`
-  font-size: 3rem;
+  font-size: 10rem;
   text-align: center;
+  font-weight: 700;
+  margin-top: 18rem;
+`;
+
+const Home = styled.button`
+  position: absolute;
+  top: 5rem;
+  left: 5rem;
+  float: right;
+  border: 1px solid;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #aedafc;
+  width: 13rem;
+  height: 13rem;
+  font-weight: 400;
+  font-size: 8rem;
+
+  :hover {
+    background-color: whitesmoke;
+  }
 `;
 
 const LeftDiv = styled.div`
   position: relative;
 `;
 const Left = styled.div`
+  text-align: center;
   background-color: whitesmoke;
-  padding: 2rem;
-  font-size: 1rem;
+  padding: 5rem 0;
+  font-size: 5rem;
+  font-weight: 400;
   border-radius: 10px;
-  margin: 10rem auto 0 auto;
+  margin: 12rem auto 0 auto;
 `;
 
 const Btn = styled.button`
   position: absolute;
   right: 2rem;
-  top: 2rem;
+  top: -14rem;
   float: right;
   border: 1px solid;
+  border-radius: 10px;
   cursor: pointer;
   background-color: #aedafc;
   padding: 2rem;
+  font-weight: 400;
+  font-size: 4rem;
+
+  :hover {
+    background-color: whitesmoke;
+  }
 `;
 const CommentCon = styled.div`
   width: 80%;
   margin: 10rem auto;
-  padding: 1rem 5rem;
-  background-color: rgba(68, 68, 68, 0.1);
+  padding: 1rem 8rem;
+  background-color: rgba(0, 0, 0, 0.05);
 `;
 
 const Container = styled.div`
@@ -183,11 +223,13 @@ const Container = styled.div`
 `;
 
 const Div = styled.div`
-  margin-left: 5rem;
+  margin: 2rem 5rem;
+  font-size: 4rem;
 `;
 
 const Hr = styled.hr`
   border: 1px solid rgba(68, 68, 68, 0.2);
+  width: 100%;
 `;
 
 const Box = styled.div`
