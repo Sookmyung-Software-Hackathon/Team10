@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { ImLocation2 } from "react-icons/im";
 import { dbService } from "../fbase";
 import Each from "../components/Each";
 import Search from "../components/Search";
@@ -24,117 +23,41 @@ const Home = () => {
     }));
       setList(listArray);
     })
-    console.log(list);
 },[]);
   const onBtnClick=(e)=>{
     dbService.doc(`left/${e}`).get()
     .then((doc) => {
       setNumM(doc.data().m);
-    })
-    .catch((error) => {
-        console.log("Error getting documents: ", error);
-    });
-    dbService.doc(`left/${e}`).get()
-    .then((doc) => {
       setNumL(doc.data().l);
+      setLocation(doc.data().location);
     })
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });
-    if (e==='soon'){
-      setLocation('B1층 카페 건너편 기둥 옆');
-    }
-    else if (e==='myung'){
-      setLocation('2층 정순옥 라운지 내');
-    }
-    else if (e==='prime'){
-      setLocation('2층(로비) 엘리베이터 옆');
-    }
-    else if (e==='jin'){
-      setLocation('1층 법학도서관 무인반납함 옆');
-    }
-    else if (e==='sae'){
-      setLocation('1층 엘리베이터 앞 협탁');
-    }
-    else if (e==='student'){
-      setLocation('3층 301호 앞 (계단 옆)');
-    }
-    else if (e==='flaza'){
-      setLocation('B1층 엘리베이터 옆');
-    }
-    else if (e==='science'){
-      setLocation('1층 atm기 앞 계단 부근');
-    }
-    else if (e==='library'){
-      setLocation('6층 열람실 화장실 앞');
-    }
-    else if (e==='art'){
-      setLocation('1층 미니 휴게실 사물함 위');
-    }
-    else if (e==='music'){
-      setLocation('1층 자판기 옆');
-    }
-    else if (e==='medi'){
-      setLocation('1층 엘리베이터 좌측 녹색 사물함 옆');
-    }
-
-      // nav.push('/detail');
   }
   return (
     <>
-      {/* <button onClick={(e)=>onBtnClick(e)}>상세페이지로</button> */}
       <Container>
         <Box>
           <Map>
             <MapImg src="/image/naver_map.png" alt="사진 출처: NAVER"></MapImg>
-            {/* {pinlist.map((each)=>(
-              <Search 
-                key={each.id}
-                name={each.name}
-                left={each.left}
-                top={each.top}
-              />
-            ))} */}
-            <Soon onClick={()=>onBtnClick('soon')}>
-              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
-            </Soon>
-            <Myung onClick={()=>onBtnClick('myung')}>
-              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
-            </Myung>
-            <Jin onClick={()=>onBtnClick('jin')}>
-              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
-            </Jin>
-            <Sae onClick={()=>onBtnClick('sae')}>
-              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
-            </Sae>
-            <Student onClick={()=>onBtnClick('student')}>
-              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
-            </Student>
-            <Prime onClick={()=>onBtnClick('prime')}>
-              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
-            </Prime>
-            <Flaza onClick={()=>onBtnClick('flaza')}>
-              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
-            </Flaza>
-            <Science onClick={()=>onBtnClick('science')}>
-              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
-            </Science>
-            <Library onClick={()=>onBtnClick('library')}>
-              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
-            </Library>
-            <Art onClick={()=>onBtnClick('art')}>
-              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
-            </Art>
-            <Music onClick={()=>onBtnClick('music')}>
-              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
-            </Music>
-            <Medi onClick={()=>onBtnClick('medi')}>
-              <ImLocation2 style={{fontSize:'4rem',focusable:true}} focusable={true}></ImLocation2>
-            </Medi>
+            {pinlist.map((each)=>(
+              <div 
+                onClick={()=>onBtnClick(each.id)}
+                key={each.id}  
+              >
+                <Search 
+                  key={each.id}
+                  left={each.left}
+                  top={each.top}
+                />
+              </div>
+              
+            ))}
+            <Board>
+                <Title>위치: {location} / 중형: {numM}개 / 대형: {numL} 개 </Title>
+            </Board>
           </Map>
-          <Board>
-            <Title>위치: {location} / 중형: {numM}개 / 대형: {numL} 개 </Title>
-          </Board>
           <Board>
             <List>
               {/* <div> */}
@@ -178,24 +101,6 @@ const MapImg = styled.img`
   margin: 3rem 5rem;
 `;
 
-const Myung = styled.div`
-  position: absolute;
-  left: 30em;
-  top: 19em;
-  opacity: 0.5;
-  & svg {
-    cursor: pointer;
-  }
-
-  :focus svg {
-    color: #e795c4;
-    opacity: 1;
-  }
-  :hover svg {
-    color: #e795c4;
-    opacity: 1;
-  }
-`;
 
 const pinlist=[
   {id:'soon',left: 40, top:11},
@@ -212,61 +117,7 @@ const pinlist=[
   {id:'medi',left: 39, top:42},
 
 ];
-const Soon = styled(Myung)`
-  left: 40em;
-  top: 11em;
-`;
 
-const Jin = styled(Myung)`
-  left: 33em;
-  top: 12em;
-  
-`;
-const Sae = styled(Myung)`
-  left: 31em;
-  top: 24em;
-  opacity: 0.5;
-`;
-const Student = styled(Myung)`
-  left: 43.5em;
-  top: 23em;
-  opacity: 0.5;
-`;
-const Prime = styled(Myung)`
-  left: 42.5em;
-  top: 32em;
-  opacity: 0.5;
-`;
-const Flaza = styled(Myung)`
-  left: 34em;
-  top: 31em;
-  opacity: 0.5;
-`;
-const Science = styled(Myung)`
-  left: 56em;
-  top: 33em;
-  opacity: 0.5;
-`;
-const Library = styled(Myung)`
-  left: 53em;
-  top: 39em;
-  opacity: 0.5;
-`;
-const Art = styled(Myung)`
-  left: 42em;
-  top: 34em;
-  opacity: 0.5;
-`;
-const Music = styled(Myung)`
-  left: 34.5em;
-  top: 36.5em;
-  opacity: 0.5;
-`;
-const Medi = styled(Myung)`
-  left: 39em;
-  top: 42em;
-  opacity: 0.5;
-`;
 const Board = styled.div`
   /* display: block; */
   width: 80rem;

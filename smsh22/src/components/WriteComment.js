@@ -3,7 +3,7 @@ import { dbService } from "../fbase";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 
-const WriteComment = ({ userObj, getDate }) => {
+const WriteComment = ({ userObj, getDate, name }) => {
   const [comment, setComment] = useState("");
   const [large, setLarge] = useState("");
   const [medium, setMedium] = useState("");
@@ -16,7 +16,7 @@ const WriteComment = ({ userObj, getDate }) => {
 
   useEffect(() => {
     dbService
-      .doc("left/prime")
+      .doc(`left/${name}`)
       .get()
       .then((doc) => {
         // doc.data() is never undefined for query doc snapshots
@@ -51,7 +51,7 @@ const WriteComment = ({ userObj, getDate }) => {
       date: Date.now(),
       stringDate: new Date(),
     };
-    await dbService.collection("left").doc("prime").update(leftObj);
+    await dbService.collection("left").doc(name).update(leftObj);
 
     const commentObj = {
       text: comment, //comment은 state인 comment의 value임
@@ -59,7 +59,7 @@ const WriteComment = ({ userObj, getDate }) => {
       creatorId: userObj.uid,
     };
     await dbService
-      .collection("prime")
+      .collection(name)
       .doc(`${commentObj.createdAt}`)
       .set(commentObj);
 
@@ -119,6 +119,7 @@ const WriteComment = ({ userObj, getDate }) => {
                 value={comment}
                 onChange={commentChange}
                 type="text"
+                required
                 placeholder="댓글을 작성해주세요."
                 maxLength={120}
                 rows="2"

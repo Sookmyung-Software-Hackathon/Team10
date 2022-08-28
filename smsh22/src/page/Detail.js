@@ -3,14 +3,14 @@ import styled from "styled-components";
 import { dbService } from "../fbase";
 import Comment from "../components/Comment";
 import WriteComment from "../components/WriteComment";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 const Detail = ({ userObj }) => {
   const [large, setLarge] = useState("");
   const [medium, setMedium] = useState("");
   const [comments, setComments] = useState([]);
-
   const [theDate, setTheDate] = useState("");
-
+  const {id}=useParams();
+  console.log(id);
   const [num, setNum] = useState([]);
   const [ridae, setRidae] = useState([]);
   const [editing, setEditing] = useState(false);
@@ -26,7 +26,7 @@ const Detail = ({ userObj }) => {
       }));
       setRidae(ridaeArray);
       for (let i = 0; i < ridaeArray.length; i++) {
-        if (ridaeArray[i].id === "prime") {
+        if (ridaeArray[i].id === id ) {
           setNum(ridaeArray[i]);
           var a = ridaeArray[i].stringDate.toDate();
           setTheDate(getFormatDate(a));
@@ -34,16 +34,9 @@ const Detail = ({ userObj }) => {
       }
       console.log(ridaeArray);
     });
-    // .then((doc) => {
-    // var a = doc.data().stringDate.toDate();
-    // setTheDate(getFormatDate(a));
-    //   setNum(doc.data());
-    // })
-    // .catch((error) => {
-    //   console.log("Error getting documents: ", error);
-    // });
+
     dbService
-      .collection("prime")
+      .collection(id)
       .orderBy("createdAt", "desc")
       // .where("text",'!=',null)
       .onSnapshot((snapshot) => {
@@ -81,7 +74,7 @@ const Detail = ({ userObj }) => {
       stringDate: new Date(),
     };
 
-    await dbService.collection("left").doc("prime").update(leftObj);
+    await dbService.collection("left").doc(id).update(leftObj);
 
     setLarge("");
     setMedium("");
@@ -104,7 +97,7 @@ const Detail = ({ userObj }) => {
 
   return (
     <Container>
-      <Where>프라임</Where>
+      <Where>{num.name}</Where>
       {editing ? (
         <Box>
           <Row>
@@ -138,7 +131,7 @@ const Detail = ({ userObj }) => {
           <Btn onClick={toggleEditing}>업데이트</Btn>
         </LeftDiv>
       )}
-      <WriteComment userObj={userObj} getDate={getDate} />
+      <WriteComment userObj={userObj} name={id} getDate={getDate} />
       <CommentCon>
         {comments.map((comment) => (
           <>
