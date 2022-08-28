@@ -9,6 +9,7 @@ const Detail = ({ userObj }) => {
   const [medium, setMedium] = useState("");
   const [comments, setComments] = useState([]);
   const [num, setNum] = useState([]);
+  const [theDate, setTheDate] = useState("");
   const [editing, setEditing] = useState(false);
   const toggleEditing = () => setEditing((prev) => !prev);
   useEffect(() => {
@@ -21,6 +22,9 @@ const Detail = ({ userObj }) => {
           // console.log(doc.id, " => ", doc.data());
 
           setNum(doc.data());
+          // var a = doc.data().stringDate;
+          // setTheDate(getFormatDate(a.toDate()));
+          // setTheDate(getFormatDate(doc.data().stringDate.toDate()));
         });
       })
       .catch((error) => {
@@ -56,6 +60,7 @@ const Detail = ({ userObj }) => {
   };
 
   const editClick = async (event) => {
+    // setTheDate(getFormatDate(theDate.toDate()));
     event.preventDefault();
     const leftObj = {
       m: medium,
@@ -63,22 +68,26 @@ const Detail = ({ userObj }) => {
       date: Date.now(),
       stringDate: new Date(),
     };
-    await dbService.collection("left").doc("prime").set(leftObj);
+    await dbService.collection("left").doc("prime").update(leftObj);
 
     setLarge("");
     setMedium("");
     toggleEditing();
-    //https://dulki.tistory.com/224
+    // setTheDate(getFormatDate(num.stringDate.toDate()));
   };
 
-  //   const getFormatDate = (date) => {
-  //     var year = date.getFullYear(); //yyyy
-  //     var month = 1 + date.getMonth(); //M
-  //     month = month >= 10 ? month : "0" + month; //month 두자리로 저장
-  //     var day = date.getDate(); //d
-  //     day = day >= 10 ? day : "0" + day; //day 두자리로 저장
-  //     return year + "" + month + "" + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
-  //   };
+  const getFormatDate = (date) => {
+    var year = date.getFullYear(); //yyyy
+    var month = 1 + date.getMonth(); //M
+    month = month >= 10 ? month : "0" + month; //month 두자리로 저장
+    var day = date.getDate(); //d
+    day = day >= 10 ? day : "0" + day; //day 두자리로 저장
+    return year + "" + month + "" + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+  };
+
+  const getDate = (d) => {
+    setTheDate(d);
+  };
 
   return (
     <Container>
@@ -108,15 +117,15 @@ const Detail = ({ userObj }) => {
       ) : (
         <LeftDiv>
           <Left>
-            대형 : {num.l}개 / 업데이트 날짜 : {num.stringDate}
+            대형 : {num.l}개 / 업데이트 날짜 : {theDate}
             <br />
             <br />
-            중형 : {num.m}개 / 업데이트 날짜 : {}
+            중형 : {num.m}개 / 업데이트 날짜 : {theDate}
           </Left>
           <Btn onClick={toggleEditing}>수정</Btn>
         </LeftDiv>
       )}
-      <WriteComment userObj={userObj} />
+      <WriteComment userObj={userObj} getDate={getDate} />
       <CommentCon>
         {comments.map((comment) => (
           <>
