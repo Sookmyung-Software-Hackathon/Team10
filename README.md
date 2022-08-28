@@ -11,9 +11,17 @@
 
 ### ‼️산출물 주소 (여기있*대*)
 
+노션 주소 : https://childlike-stream-927.notion.site/nayangna-2b4ce253e3854e84afe29ca62cb80030
+
 깃허브 주소 : [](https://github.com/Sookmyung-Software-Hackathon/Team10_naYangna)https://github.com/Sookmyung-Software-Hackathon/Team10_naYangna 
 
 배포 주소 : [https://nayangna.netlify.app/#/](https://nayangna.netlify.app/#/)
+
+시연 영상
+
+https://user-images.githubusercontent.com/80334038/187074403-69111e4f-d330-4739-88fa-1ec1e2499e46.MP4
+
+
 
 ### ‼️분야
 
