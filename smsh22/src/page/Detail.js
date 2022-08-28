@@ -108,6 +108,7 @@ const Detail = ({ userObj }) => {
               type="text"
               placeholder="대형 생리대 개수"
               value={large}
+              required
               onChange={largeChange}
             />
           </Row>
@@ -115,6 +116,7 @@ const Detail = ({ userObj }) => {
             <Sub>중형</Sub>
             <Content
               type="text"
+              required
               placeholder="중형 생리대 개수"
               value={medium}
               onChange={mediumChange}
