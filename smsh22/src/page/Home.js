@@ -7,6 +7,7 @@ import Search from "../components/Search";
 const Home = () => {
   const [numM,setNumM]=useState();
   const [numL,setNumL]=useState();
+  const [name,setName]=useState();
   const [location,setLocation]=useState('');
   const [list,setList]=useState([]);
   const onLinkClick=()=>{
@@ -28,6 +29,7 @@ const Home = () => {
   const onBtnClick=(e)=>{
     dbService.doc(`left/${e}`).get()
     .then((doc) => {
+      setName(doc.data().name);
       setNumM(doc.data().m);
       setNumL(doc.data().l);
       setLocation(doc.data().location);
@@ -59,7 +61,7 @@ const Home = () => {
               {location===''?(
                 <Notice>지도에서 원하는 위치를 클릭하세요</Notice>
               ):(
-                <Title>위치: {location}<br/>
+                <Title>위치: {name} {location}<br/>
                   중형: {numM} 개<br/>
                   대형: {numL} 개
                 </Title>
