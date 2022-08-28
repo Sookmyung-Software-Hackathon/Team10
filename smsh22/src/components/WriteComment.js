@@ -5,8 +5,8 @@ import styled from "styled-components";
 
 const WriteComment = ({ userObj, getDate, name }) => {
   const [comment, setComment] = useState("");
-  const [large, setLarge] = useState('');
-  const [medium, setMedium] = useState('');
+  const [large, setLarge] = useState("");
+  const [medium, setMedium] = useState("");
   const [write, setWrite] = useState(false);
   const [thedate, setThedate] = useState("");
 
@@ -38,37 +38,37 @@ const WriteComment = ({ userObj, getDate, name }) => {
   }
 
   const onSubmit = async (event) => {
-    let leftObj
+    let leftObj;
     if (comment === "") {
       return;
     }
     event.preventDefault();
-    if (medium===''){
-        if(large===''){
-            leftObj = {
-                date: Date.now(),
-                stringDate: new Date(),
-              };
-        }else{
-            leftObj = {
-                l: large,
-                date: Date.now(),
-                stringDate: new Date(),
-              };
-        }
-    }else if (large===''){
+    if (medium === "") {
+      if (large === "") {
         leftObj = {
-            m: medium,
-            date: Date.now(),
-            stringDate: new Date(),
-          };
-    }else{
+          date: Date.now(),
+          stringDate: new Date(),
+        };
+      } else {
         leftObj = {
-            m: medium,
-            l: large,
-            date: Date.now(),
-            stringDate: new Date(),
-    };
+          l: large,
+          date: Date.now(),
+          stringDate: new Date(),
+        };
+      }
+    } else if (large === "") {
+      leftObj = {
+        m: medium,
+        date: Date.now(),
+        stringDate: new Date(),
+      };
+    } else {
+      leftObj = {
+        m: medium,
+        l: large,
+        date: Date.now(),
+        stringDate: new Date(),
+      };
     }
     await dbService.collection("left").doc(name).update(leftObj);
 
@@ -117,7 +117,7 @@ const WriteComment = ({ userObj, getDate, name }) => {
             <Row>
               <Sub>대형</Sub>
               <Content
-                type="text"
+                type="number"
                 placeholder="대형 생리대 개수"
                 value={large}
                 onChange={largeChange}
@@ -126,7 +126,7 @@ const WriteComment = ({ userObj, getDate, name }) => {
             <Row>
               <Sub>중형</Sub>
               <Content
-                type="text"
+                type="number"
                 placeholder="중형 생리대 개수"
                 value={medium}
                 onChange={mediumChange}
@@ -142,7 +142,7 @@ const WriteComment = ({ userObj, getDate, name }) => {
                 placeholder="댓글을 작성해주세요."
                 maxLength={120}
                 rows="2"
-                cols="26"
+                cols="37"
               />
             </Row>
             <Btn type="submit" value="&rarr;" />
@@ -169,12 +169,14 @@ const Row = styled.div`
 const Sub = styled.div`
   background-color: whitesmoke;
   margin: 1rem;
+  font-size: 4rem;
 `;
 const Content = styled.input`
   border: none;
   outline-style: none;
   background-color: whitesmoke;
   width: fit-content;
+  font-size: 4rem;
 `;
 
 const Btn = styled.input`
@@ -185,6 +187,11 @@ const Btn = styled.input`
   border: 1px solid;
   cursor: pointer;
   background-color: #aedafc;
+  border-radius: 10px;
+  width: 8rem;
+  font-weight: 800;
+  font-size: large;
+  padding: 0.5rem 0;
 `;
 
 const ContentRepl = styled.textarea`
@@ -194,6 +201,7 @@ const ContentRepl = styled.textarea`
   height: auto;
   resize: none;
   overflow: visible;
+  font-size: 4rem;
 `;
 
 const Repl = styled.div`
@@ -202,6 +210,15 @@ const Repl = styled.div`
   margin: 10rem auto;
   border-radius: 10px;
   text-align: center;
+  font-size: 5rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid #000;
+
+  :hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 1px solid #000;
+  }
 `;
 
 export default WriteComment;
