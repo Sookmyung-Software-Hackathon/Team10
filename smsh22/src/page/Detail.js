@@ -9,7 +9,7 @@ const Detail = ({ userObj }) => {
   const [medium, setMedium] = useState("");
   const [comments, setComments] = useState([]);
   const [theDate, setTheDate] = useState("");
-  const {id}=useParams();
+  const { id } = useParams();
   console.log(id);
   const [ridae, setRidae] = useState([]);
   const [editing, setEditing] = useState(false);
@@ -18,20 +18,21 @@ const Detail = ({ userObj }) => {
   const toggleEditing = () => setEditing((prev) => !prev);
   useEffect(() => {
     console.log(location.state);
-    dbService.collection("left").doc(id).onSnapshot((doc) => {
-      const ridaeArray ={ 
-        // id: doc.id,
-        l:doc.data().l,
-        m:doc.data().m,
-        location:doc.data().location,
-        name:doc.data().name,
-        stringDate:getFormatDate(doc.data().stringDate.toDate()),
-      }
-      setRidae(ridaeArray);
-      console.log(ridaeArray);
-
-    });
-
+    dbService
+      .collection("left")
+      .doc(id)
+      .onSnapshot((doc) => {
+        const ridaeArray = {
+          // id: doc.id,
+          l: doc.data().l,
+          m: doc.data().m,
+          location: doc.data().location,
+          name: doc.data().name,
+          stringDate: getFormatDate(doc.data().stringDate.toDate()),
+        };
+        setRidae(ridaeArray);
+        console.log(ridaeArray);
+      });
 
     dbService
       .collection(id)
@@ -44,13 +45,9 @@ const Detail = ({ userObj }) => {
           ...doc.data(),
         }));
         setComments(commentArray);
-        //console.log(commentArray);
+        console.log(commentArray);
       });
   }, []);
-
-    useEffect(()=>{
-        console.log('gg');
-    },[ridae])
 
   const largeChange = (event) => {
     const {
@@ -138,15 +135,12 @@ const Detail = ({ userObj }) => {
       <WriteComment userObj={userObj} name={id} getDate={getDate} />
       <CommentCon>
         {comments.map((comment) => (
-          <>
+          <div key={comment.id}>
             <Div>
-              <Comment
-                // key={}
-                commentObj={comment}
-              />
+              <Comment commentObj={comment} />
             </Div>
             <Hr />
-          </>
+          </div>
         ))}
       </CommentCon>
     </Container>
@@ -155,6 +149,7 @@ const Detail = ({ userObj }) => {
 
 const Where = styled.div`
   font-size: 3rem;
+  text-align: center;
 `;
 
 const LeftDiv = styled.div`

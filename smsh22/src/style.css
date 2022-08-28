@@ -1,3 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap");
+
+* {
+  font-family: "Gowun Batang", serif;
+}
+
 html {
   position: relative;
   width: 800px;
@@ -5,10 +11,10 @@ html {
   background-color: #aedafc;
   font-size: 7px;
 }
-@media screen and (max-width:700px) {
-  html{ 
-      font-size: 1vw;
-      width: 100%;
-      margin: 0 auto;        
+@media screen and (max-width: 700px) {
+  html {
+    font-size: 1vw;
+    width: 100%;
+    margin: 0 auto;
   }
 }
