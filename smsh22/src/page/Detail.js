@@ -175,10 +175,7 @@ const Home = styled.button`
   height: 13rem;
   font-weight: 400;
   font-size: 8rem;
-
-  :hover {
-    background-color: whitesmoke;
-  }
+text-align: center;
 `;
 
 const LeftDiv = styled.div`
@@ -207,9 +204,6 @@ const Btn = styled.button`
   font-weight: 400;
   font-size: 4rem;
 
-  :hover {
-    background-color: whitesmoke;
-  }
 `;
 const CommentCon = styled.div`
   width: 80%;
@@ -246,12 +240,14 @@ const Row = styled.div`
 const Sub = styled.div`
   background-color: whitesmoke;
   margin: 1rem;
+  font-size: 4rem;
 `;
 const Content = styled.input`
   border: none;
   outline-style: none;
   background-color: whitesmoke;
   width: fit-content;
+  font-size: 4rem;
 `;
 
 export default Detail;
