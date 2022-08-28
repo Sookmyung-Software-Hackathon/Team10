@@ -59,7 +59,7 @@ const WriteComment = ({ userObj, getDate, name }) => {
       creatorId: userObj.uid,
     };
     await dbService
-      .collection("prime")
+      .collection(name)
       .doc(`${commentObj.createdAt}`)
       .set(commentObj);
 
@@ -119,6 +119,7 @@ const WriteComment = ({ userObj, getDate, name }) => {
                 value={comment}
                 onChange={commentChange}
                 type="text"
+                required
                 placeholder="댓글을 작성해주세요."
                 maxLength={120}
                 rows="2"

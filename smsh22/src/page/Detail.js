@@ -3,14 +3,14 @@ import styled from "styled-components";
 import { dbService } from "../fbase";
 import Comment from "../components/Comment";
 import WriteComment from "../components/WriteComment";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 const Detail = ({ userObj }) => {
   const [large, setLarge] = useState("");
   const [medium, setMedium] = useState("");
   const [comments, setComments] = useState([]);
-
   const [theDate, setTheDate] = useState("");
-
+  const {id}=useParams();
+  console.log(id);
   const [num, setNum] = useState([]);
 
   const [editing, setEditing] = useState(false);
@@ -20,7 +20,7 @@ const Detail = ({ userObj }) => {
   useEffect(() => {
     console.log(location.state);
     dbService
-      .doc(`left/prime`)
+      .doc(`left/${id}`)
       .get()
       .then((doc) => {
         var a = doc.data().stringDate.toDate();
@@ -31,7 +31,7 @@ const Detail = ({ userObj }) => {
         console.log("Error getting documents: ", error);
       });
     dbService
-      .collection("prime")
+      .collection(id)
       .orderBy("createdAt", "desc")
       // .where("text",'!=',null)
       .onSnapshot((snapshot) => {
@@ -69,7 +69,7 @@ const Detail = ({ userObj }) => {
       stringDate: new Date(),
     };
 
-    await dbService.collection("left").doc("prime").update(leftObj);
+    await dbService.collection("left").doc(id).update(leftObj);
 
     setLarge("");
     setMedium("");
@@ -92,7 +92,7 @@ const Detail = ({ userObj }) => {
 
   return (
     <Container>
-      <Where>프라임</Where>
+      <Where>{num.name}</Where>
       {editing ? (
         <Box>
           <Row>
@@ -126,7 +126,7 @@ const Detail = ({ userObj }) => {
           <Btn onClick={toggleEditing}>업데이트</Btn>
         </LeftDiv>
       )}
-      <WriteComment userObj={userObj} name={location.state.id} getDate={getDate} />
+      <WriteComment userObj={userObj} name={id} getDate={getDate} />
       <CommentCon>
         {comments.map((comment) => (
           <>
