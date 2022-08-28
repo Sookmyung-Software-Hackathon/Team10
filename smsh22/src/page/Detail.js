@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { dbService } from "../fbase";
 import Comment from "../components/Comment";
 import WriteComment from "../components/WriteComment";
+import { useLocation } from "react-router-dom";
 const Where=styled.div`
     font-size: 3rem;
 `;
@@ -17,6 +18,8 @@ const Container=styled.div`
     margin: 1.5rem 0.5rem;
 `;
 const Detail=({userObj})=>{
+    const location=useLocation();
+    console.log(location.state);
     const [comments,setComments]=useState([]);
     const [numM,setNumM]=useState([]);
     const [numL,setNumL]=useState([]);

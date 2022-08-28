@@ -1,9 +1,9 @@
 
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { ImLocation2 } from "react-icons/im";
 import { dbService } from "../fbase";
+import Each from "../components/Each";
 // import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -14,15 +14,16 @@ const Home = () => {
   useEffect(()=>{
     dbService.collection('left').where("l",'!=',null)
     .onSnapshot((snapshot) => {
-      const listArray = snapshot.docs.map((doc) => ([
-        doc.id,
-        doc.data.m+doc.data.l>0,
-      ]));
+      const listArray = snapshot.docs.map((doc) => ({
+        id:doc.id,
+        name:doc.data().name,
+        leftm:doc.data().m,
+        leftl:doc.data().l,
+        left:parseInt(doc.data().m,10)+parseInt(doc.data().l,10)>0,
+    }));
       setList(listArray);
     })
-    console.log(list);
 },[]);
-  const nav=useHistory();
   const onBtnClick=(e)=>{
     dbService.doc(`left/${e}`).get()
     .then((doc) => {
@@ -79,7 +80,7 @@ const Home = () => {
   }
   return (
     <>
-      <button onClick={(e)=>onBtnClick(e)}>상세페이지로</button>
+      {/* <button onClick={(e)=>onBtnClick(e)}>상세페이지로</button> */}
       <Container>
         <Box>
           <Map>
@@ -126,24 +127,13 @@ const Home = () => {
           </Board>
           <Board>
             <List>
-              {/* {list==null?(
-                <> */}
-                  <div>순헌관 </div>
-                  <div>명신관 </div>
-                  <div>진리관 </div>
-                  <div>새힘관 </div>
-                  <div>학생회관 </div>
-                  <div>프라임관 </div>
-                  <div>르네상스플라자 </div>
-                  <div>과학관 </div>
-                  <div>중앙도서관 </div>
-                  <div>미술대학 </div>
-                  <div>음악대학 </div>
-                  <div>약학대학 </div>
-                {/* </>
-              ):(
-                <>initializing..</>
-              )} */}
+              {/* <div> */}
+                {list.map((each)=>(
+                  <Each 
+                    key={each.id}
+                    list={each} 
+                  />
+              ))}
             </List>
           </Board>
         </Box>
@@ -250,17 +240,6 @@ const Medi = styled(Myung)`
   left: 39em;
   top: 42em;
   opacity: 0.5;
-  & svg {
-    cursor: pointer;
-  }
-  :focus svg {
-    color: #e795c4;
-    opacity: 1;
-  }
-  :hover svg {
-    color: #e795c4;
-    opacity: 1;
-  }
 `;
 const Board = styled.div`
   /* display: block; */
