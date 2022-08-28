@@ -3,16 +3,22 @@ import styled from "styled-components";
 import { dbService } from "../fbase";
 import Comment from "../components/Comment";
 import WriteComment from "../components/WriteComment";
-
+import { useLocation } from 'react-router-dom';
 const Detail = ({ userObj }) => {
   const [large, setLarge] = useState("");
   const [medium, setMedium] = useState("");
   const [comments, setComments] = useState([]);
-  const [num, setNum] = useState([]);
+
   const [theDate, setTheDate] = useState("");
+
+//   const [num, setNum] = useState([]);
+
   const [editing, setEditing] = useState(false);
+  const location=useLocation();
+
   const toggleEditing = () => setEditing((prev) => !prev);
   useEffect(() => {
+    console.log(location.state);
     dbService
       .collection("left")
       .get()
@@ -31,7 +37,7 @@ const Detail = ({ userObj }) => {
         console.log("Error getting documents: ", error);
       });
     dbService
-      .collection("prime")
+      .collection(location.state.id)
       .orderBy("createdAt", "desc")
       // .where("text",'!=',null)
       .onSnapshot((snapshot) => {
@@ -68,7 +74,10 @@ const Detail = ({ userObj }) => {
       date: Date.now(),
       stringDate: new Date(),
     };
-    await dbService.collection("left").doc("prime").update(leftObj);
+
+
+
+    await dbService.collection("left").doc(location.state.id).update(leftObj);
 
     setLarge("");
     setMedium("");
@@ -91,7 +100,7 @@ const Detail = ({ userObj }) => {
 
   return (
     <Container>
-      <Where>위치 어딘지</Where>
+      <Where>{location.state.name}</Where>
       {editing ? (
         <Box>
           <Row>
@@ -117,10 +126,10 @@ const Detail = ({ userObj }) => {
       ) : (
         <LeftDiv>
           <Left>
-            대형 : {num.l}개 / 업데이트 날짜 : {theDate}
+            대형 : {location.state.leftl}개 / 업데이트 날짜 : {theDate}
             <br />
             <br />
-            중형 : {num.m}개 / 업데이트 날짜 : {theDate}
+            중형 : {location.state.leftm}개 / 업데이트 날짜 : {}
           </Left>
           <Btn onClick={toggleEditing}>수정</Btn>
         </LeftDiv>
