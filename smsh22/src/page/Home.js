@@ -12,7 +12,7 @@ const Home = () => {
   const [location,setLocation]=useState();
   const [list,setList]=useState([]);
   useEffect(()=>{
-    dbService.collection('left').where("l",'!=',null)
+    dbService.collection('left')
     .onSnapshot((snapshot) => {
       const listArray = snapshot.docs.map((doc) => ({
         id:doc.id,

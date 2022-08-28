@@ -5,8 +5,8 @@ import styled from "styled-components";
 
 const WriteComment = ({ userObj, getDate, name }) => {
   const [comment, setComment] = useState("");
-  const [large, setLarge] = useState("");
-  const [medium, setMedium] = useState("");
+  const [large, setLarge] = useState('');
+  const [medium, setMedium] = useState('');
   const [write, setWrite] = useState(false);
   const [thedate, setThedate] = useState("");
 
@@ -19,8 +19,6 @@ const WriteComment = ({ userObj, getDate, name }) => {
       .doc(`left/${name}`)
       .get()
       .then((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        // console.log(doc.id, " => ", doc.data());
         var a = doc.data().stringDate.toDate();
         setThedate(getFormatDate(a));
         console.log(thedate);
@@ -30,7 +28,6 @@ const WriteComment = ({ userObj, getDate, name }) => {
         console.log("Error getting documents: ", error);
       });
   }, []);
-
   function getFormatDate(date) {
     var year = date.getFullYear(); //yyyy
     var month = 1 + date.getMonth(); //M
@@ -41,16 +38,38 @@ const WriteComment = ({ userObj, getDate, name }) => {
   }
 
   const onSubmit = async (event) => {
+    let leftObj
     if (comment === "") {
       return;
     }
     event.preventDefault();
-    const leftObj = {
-      m: medium,
-      l: large,
-      date: Date.now(),
-      stringDate: new Date(),
+    if (medium===''){
+        if(large===''){
+            leftObj = {
+                date: Date.now(),
+                stringDate: new Date(),
+              };
+        }else{
+            leftObj = {
+                l: large,
+                date: Date.now(),
+                stringDate: new Date(),
+              };
+        }
+    }else if (large===''){
+        leftObj = {
+            m: medium,
+            date: Date.now(),
+            stringDate: new Date(),
+          };
+    }else{
+        leftObj = {
+            m: medium,
+            l: large,
+            date: Date.now(),
+            stringDate: new Date(),
     };
+    }
     await dbService.collection("left").doc(name).update(leftObj);
 
     const commentObj = {
