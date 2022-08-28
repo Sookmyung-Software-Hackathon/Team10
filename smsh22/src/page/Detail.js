@@ -20,22 +20,15 @@ const Detail = ({ userObj }) => {
   useEffect(() => {
     console.log(location.state);
     dbService
-      .collection("left")
+      .doc(`left/${location.state.id}`)
       .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          // console.log(doc.id, " => ", doc.data());
-
-          setNum(doc.data());
-          // var a = doc.data().stringDate;
-          // setTheDate(getFormatDate(a.toDate()));
-          // setTheDate(getFormatDate(doc.data().stringDate.toDate()));
-        });
-      })
+      .then((doc) => {
+          var a= doc.data().stringDate.toDate();
+          setTheDate(getFormatDate(a))
+        })
       .catch((error) => {
         console.log("Error getting documents: ", error);
-      });
+    });
     dbService
       .collection(location.state.id)
       .orderBy("createdAt", "desc")
@@ -75,8 +68,6 @@ const Detail = ({ userObj }) => {
       stringDate: new Date(),
     };
 
-
-
     await dbService.collection("left").doc(location.state.id).update(leftObj);
 
     setLarge("");
@@ -85,14 +76,14 @@ const Detail = ({ userObj }) => {
     // setTheDate(getFormatDate(num.stringDate.toDate()));
   };
 
-  const getFormatDate = (date) => {
+  function getFormatDate(date) {
     var year = date.getFullYear(); //yyyy
     var month = 1 + date.getMonth(); //M
     month = month >= 10 ? month : "0" + month; //month 두자리로 저장
     var day = date.getDate(); //d
     day = day >= 10 ? day : "0" + day; //day 두자리로 저장
-    return year + "" + month + "" + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
-  };
+    return (year + "/" + month + "/" + day)
+  } 
 
   const getDate = (d) => {
     setTheDate(d);
@@ -129,7 +120,7 @@ const Detail = ({ userObj }) => {
             대형 : {location.state.leftl}개 / 업데이트 날짜 : {theDate}
             <br />
             <br />
-            중형 : {location.state.leftm}개 / 업데이트 날짜 : {}
+            중형 : {location.state.leftm}개 / 업데이트 날짜 : {theDate}
           </Left>
           <Btn onClick={toggleEditing}>수정</Btn>
         </LeftDiv>
