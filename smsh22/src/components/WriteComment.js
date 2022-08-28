@@ -21,26 +21,24 @@ const WriteComment = ({ userObj, getDate }) => {
       .then((doc) => {
         // doc.data() is never undefined for query doc snapshots
         // console.log(doc.id, " => ", doc.data());
-
-        setThedate(doc.data());
+        var a = doc.data().stringDate.toDate();
+        setThedate(getFormatDate(a));
         console.log(thedate);
+        getDate(thedate);
       })
       .catch((error) => {
         console.log("Error getting documents: ", error);
       });
   }, []);
-  const getFormatDate = (date) => {
+
+  function getFormatDate(date) {
     var year = date.getFullYear(); //yyyy
     var month = 1 + date.getMonth(); //M
     month = month >= 10 ? month : "0" + month; //month 두자리로 저장
     var day = date.getDate(); //d
     day = day >= 10 ? day : "0" + day; //day 두자리로 저장
-    return year + "" + month + "" + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
-  };
-  useEffect(() => {
-    console.log(thedate.stringDate);
-    // getDate(getFormatDate(thedate.stringDate.toDate()));
-  }, [thedate]);
+    return year + "/" + month + "/" + day;
+  }
 
   const onSubmit = async (event) => {
     if (comment === "") {
@@ -63,7 +61,7 @@ const WriteComment = ({ userObj, getDate }) => {
     await dbService
       .collection("prime")
       .doc(`${commentObj.createdAt}`)
-      .update(commentObj);
+      .set(commentObj);
 
     setComment(""); //빈 문자열로 돌아가게끔
     setLarge("");
