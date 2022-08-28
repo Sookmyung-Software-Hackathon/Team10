@@ -11,7 +11,6 @@ const Detail = ({ userObj }) => {
   const [theDate, setTheDate] = useState("");
   const {id}=useParams();
   console.log(id);
-  const [num, setNum] = useState([]);
   const [ridae, setRidae] = useState([]);
   const [editing, setEditing] = useState(false);
   const location = useLocation();
@@ -19,21 +18,20 @@ const Detail = ({ userObj }) => {
   const toggleEditing = () => setEditing((prev) => !prev);
   useEffect(() => {
     console.log(location.state);
-    dbService.collection("left").onSnapshot((snapshot) => {
-      const ridaeArray = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setRidae(ridaeArray);
-      for (let i = 0; i < ridaeArray.length; i++) {
-        if (ridaeArray[i].id === id ) {
-          setNum(ridaeArray[i]);
-          var a = ridaeArray[i].stringDate.toDate();
-          setTheDate(getFormatDate(a));
-        }
+    dbService.collection("left").doc(id).onSnapshot((doc) => {
+      const ridaeArray ={ 
+        // id: doc.id,
+        l:doc.data().l,
+        m:doc.data().m,
+        location:doc.data().location,
+        name:doc.data().name,
+        stringDate:getFormatDate(doc.data().stringDate.toDate()),
       }
+      setRidae(ridaeArray);
       console.log(ridaeArray);
+
     });
+
 
     dbService
       .collection(id)
@@ -49,6 +47,10 @@ const Detail = ({ userObj }) => {
         //console.log(commentArray);
       });
   }, []);
+
+    useEffect(()=>{
+        console.log('gg');
+    },[ridae])
 
   const largeChange = (event) => {
     const {
@@ -97,7 +99,7 @@ const Detail = ({ userObj }) => {
 
   return (
     <Container>
-      <Where>{num.name}</Where>
+      <Where>{ridae.name}</Where>
       {editing ? (
         <Box>
           <Row>
@@ -123,10 +125,10 @@ const Detail = ({ userObj }) => {
       ) : (
         <LeftDiv>
           <Left>
-            대형 : {num.l}개 / 업데이트 날짜 : {theDate}
+            대형 : {ridae.l}개 / 업데이트 날짜 : {ridae.stringDate}
             <br />
             <br />
-            중형 : {num.m}개 / 업데이트 날짜 : {theDate}
+            중형 : {ridae.m}개 / 업데이트 날짜 : {ridae.stringDate}
           </Left>
           <Btn onClick={toggleEditing}>업데이트</Btn>
         </LeftDiv>
