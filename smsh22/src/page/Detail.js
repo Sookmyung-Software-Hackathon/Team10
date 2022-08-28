@@ -10,14 +10,12 @@ const Detail = ({ userObj }) => {
   const [comments, setComments] = useState([]);
   const [theDate, setTheDate] = useState("");
   const {id}=useParams();
-  console.log(id);
   const [ridae, setRidae] = useState([]);
   const [editing, setEditing] = useState(false);
   const location = useLocation();
 
   const toggleEditing = () => setEditing((prev) => !prev);
   useEffect(() => {
-    console.log(location.state);
     dbService.collection("left").doc(id).onSnapshot((doc) => {
       const ridaeArray ={ 
         // id: doc.id,
@@ -28,15 +26,10 @@ const Detail = ({ userObj }) => {
         stringDate:getFormatDate(doc.data().stringDate.toDate()),
       }
       setRidae(ridaeArray);
-      console.log(ridaeArray);
-
     });
-
-
     dbService
       .collection(id)
       .orderBy("createdAt", "desc")
-      // .where("text",'!=',null)
       .onSnapshot((snapshot) => {
         //새로운 snapshhot받을때 배열(commentArray)을 만듦
         const commentArray = snapshot.docs.map((doc) => ({
@@ -44,13 +37,8 @@ const Detail = ({ userObj }) => {
           ...doc.data(),
         }));
         setComments(commentArray);
-        //console.log(commentArray);
       });
   }, []);
-
-    useEffect(()=>{
-        console.log('gg');
-    },[ridae])
 
   const largeChange = (event) => {
     const {

@@ -1,6 +1,10 @@
 import React from "react";
 import { useHistory } from 'react-router-dom';
+import styled from "styled-components";
 
+const Div=styled.div`
+    font-size: 4rem;
+`;
 const Each=({list})=>{
     const nav=useHistory();
     const onDetailClick=()=>{
@@ -15,9 +19,9 @@ const Each=({list})=>{
         })
     }
     return(
-        <div onClick={onDetailClick}>
+        <Div onClick={onDetailClick}>
             {list.name} {list.left?"⭕":"❌"}
-        </div>
+        </Div>
     )
 }
 export default Each;
