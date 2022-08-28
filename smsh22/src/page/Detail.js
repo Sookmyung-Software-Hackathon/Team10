@@ -12,24 +12,36 @@ const Detail = ({ userObj }) => {
   const [theDate, setTheDate] = useState("");
 
   const [num, setNum] = useState([]);
-
+  const [ridae, setRidae] = useState([]);
   const [editing, setEditing] = useState(false);
   const location = useLocation();
 
   const toggleEditing = () => setEditing((prev) => !prev);
   useEffect(() => {
     console.log(location.state);
-    dbService
-      .doc(`left/prime`)
-      .get()
-      .then((doc) => {
-        var a = doc.data().stringDate.toDate();
-        setTheDate(getFormatDate(a));
-        setNum(doc.data());
-      })
-      .catch((error) => {
-        console.log("Error getting documents: ", error);
-      });
+    dbService.collection("left").onSnapshot((snapshot) => {
+      const ridaeArray = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setRidae(ridaeArray);
+      for (let i = 0; i < ridaeArray.length; i++) {
+        if (ridaeArray[i].id === "prime") {
+          setNum(ridaeArray[i]);
+          var a = ridaeArray[i].stringDate.toDate();
+          setTheDate(getFormatDate(a));
+        }
+      }
+      console.log(ridaeArray);
+    });
+    // .then((doc) => {
+    // var a = doc.data().stringDate.toDate();
+    // setTheDate(getFormatDate(a));
+    //   setNum(doc.data());
+    // })
+    // .catch((error) => {
+    //   console.log("Error getting documents: ", error);
+    // });
     dbService
       .collection("prime")
       .orderBy("createdAt", "desc")
@@ -41,7 +53,7 @@ const Detail = ({ userObj }) => {
           ...doc.data(),
         }));
         setComments(commentArray);
-        console.log(commentArray);
+        //console.log(commentArray);
       });
   }, []);
 
