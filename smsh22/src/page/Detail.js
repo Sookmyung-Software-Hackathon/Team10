@@ -8,13 +8,34 @@ const Detail = ({ userObj }) => {
   const [large, setLarge] = useState("");
   const [medium, setMedium] = useState("");
   const [comments, setComments] = useState([]);
+
+  const [theDate, setTheDate] = useState("");
+
 //   const [num, setNum] = useState([]);
+
   const [editing, setEditing] = useState(false);
   const location=useLocation();
 
   const toggleEditing = () => setEditing((prev) => !prev);
   useEffect(() => {
     console.log(location.state);
+    dbService
+      .collection("left")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          // console.log(doc.id, " => ", doc.data());
+
+          setNum(doc.data());
+          // var a = doc.data().stringDate;
+          // setTheDate(getFormatDate(a.toDate()));
+          // setTheDate(getFormatDate(doc.data().stringDate.toDate()));
+        });
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
     dbService
       .collection(location.state.id)
       .orderBy("createdAt", "desc")
@@ -45,6 +66,7 @@ const Detail = ({ userObj }) => {
   };
 
   const editClick = async (event) => {
+    // setTheDate(getFormatDate(theDate.toDate()));
     event.preventDefault();
     const leftObj = {
       m: medium,
@@ -52,22 +74,29 @@ const Detail = ({ userObj }) => {
       date: Date.now(),
       stringDate: new Date(),
     };
+
+
+
     await dbService.collection("left").doc(location.state.id).update(leftObj);
 
     setLarge("");
     setMedium("");
     toggleEditing();
-    //https://dulki.tistory.com/224
+    // setTheDate(getFormatDate(num.stringDate.toDate()));
   };
 
-  //   const getFormatDate = (date) => {
-  //     var year = date.getFullYear(); //yyyy
-  //     var month = 1 + date.getMonth(); //M
-  //     month = month >= 10 ? month : "0" + month; //month 두자리로 저장
-  //     var day = date.getDate(); //d
-  //     day = day >= 10 ? day : "0" + day; //day 두자리로 저장
-  //     return year + "" + month + "" + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
-  //   };
+  const getFormatDate = (date) => {
+    var year = date.getFullYear(); //yyyy
+    var month = 1 + date.getMonth(); //M
+    month = month >= 10 ? month : "0" + month; //month 두자리로 저장
+    var day = date.getDate(); //d
+    day = day >= 10 ? day : "0" + day; //day 두자리로 저장
+    return year + "" + month + "" + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+  };
+
+  const getDate = (d) => {
+    setTheDate(d);
+  };
 
   return (
     <Container>
@@ -97,7 +126,7 @@ const Detail = ({ userObj }) => {
       ) : (
         <LeftDiv>
           <Left>
-            대형 : {location.state.leftl}개 / 업데이트 날짜 : {}
+            대형 : {location.state.leftl}개 / 업데이트 날짜 : {theDate}
             <br />
             <br />
             중형 : {location.state.leftm}개 / 업데이트 날짜 : {}
@@ -105,7 +134,7 @@ const Detail = ({ userObj }) => {
           <Btn onClick={toggleEditing}>수정</Btn>
         </LeftDiv>
       )}
-      <WriteComment userObj={userObj} />
+      <WriteComment userObj={userObj} getDate={getDate} />
       <CommentCon>
         {comments.map((comment) => (
           <>

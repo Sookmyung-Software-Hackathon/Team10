@@ -1,17 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { dbService } from "../fbase";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 
-const WriteComment = ({ userObj }) => {
+const WriteComment = ({ userObj, getDate }) => {
   const [comment, setComment] = useState("");
   const [large, setLarge] = useState("");
   const [medium, setMedium] = useState("");
   const [write, setWrite] = useState(false);
+  const [thedate, setThedate] = useState("");
 
   const onWrite = () => {
     setWrite(true);
   };
+
+  useEffect(() => {
+    dbService
+      .doc("left/prime")
+      .get()
+      .then((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        // console.log(doc.id, " => ", doc.data());
+
+        setThedate(doc.data());
+        console.log(thedate);
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+  }, []);
+  const getFormatDate = (date) => {
+    var year = date.getFullYear(); //yyyy
+    var month = 1 + date.getMonth(); //M
+    month = month >= 10 ? month : "0" + month; //month 두자리로 저장
+    var day = date.getDate(); //d
+    day = day >= 10 ? day : "0" + day; //day 두자리로 저장
+    return year + "" + month + "" + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+  };
+  useEffect(() => {
+    console.log(thedate.stringDate);
+    // getDate(getFormatDate(thedate.stringDate.toDate()));
+  }, [thedate]);
 
   const onSubmit = async (event) => {
     if (comment === "") {
@@ -41,6 +70,7 @@ const WriteComment = ({ userObj }) => {
     setMedium("");
     setWrite(false);
   };
+
   const commentChange = (event) => {
     const {
       target: { value },
