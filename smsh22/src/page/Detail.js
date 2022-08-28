@@ -233,12 +233,13 @@ const Sub = styled.div`
   background-color: whitesmoke;
   margin: 1rem;
   font-size: 5rem;
+  width: 13%;
 `;
 const Content = styled.input`
   border: none;
   outline-style: none;
   background-color: whitesmoke;
-  width: fit-content;
+  width: 50%;
   font-size: 5rem;
 `;
 
