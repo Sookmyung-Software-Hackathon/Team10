@@ -125,7 +125,7 @@ const Detail = ({ userObj }) => {
           <Btn onClick={toggleEditing}>수정</Btn>
         </LeftDiv>
       )}
-      <WriteComment userObj={userObj} getDate={getDate} />
+      <WriteComment userObj={userObj} name={location.state.id} getDate={getDate} />
       <CommentCon>
         {comments.map((comment) => (
           <>
