@@ -9,24 +9,26 @@ const Detail = ({ userObj }) => {
   const [medium, setMedium] = useState("");
   const [comments, setComments] = useState([]);
   const [theDate, setTheDate] = useState("");
-  const {id}=useParams();
+  const { id } = useParams();
   const [ridae, setRidae] = useState([]);
   const [editing, setEditing] = useState(false);
   const location = useLocation();
 
   const toggleEditing = () => setEditing((prev) => !prev);
   useEffect(() => {
-    dbService.collection("left").doc(id).onSnapshot((doc) => {
-      const ridaeArray ={ 
-        // id: doc.id,
-        l:doc.data().l,
-        m:doc.data().m,
-        location:doc.data().location,
-        name:doc.data().name,
-        stringDate:getFormatDate(doc.data().stringDate.toDate()),
-      }
-      setRidae(ridaeArray);
-    });
+    dbService
+      .collection("left")
+      .doc(id)
+      .onSnapshot((doc) => {
+        const ridaeArray = {
+          l: doc.data().l,
+          m: doc.data().m,
+          location: doc.data().location,
+          name: doc.data().name,
+          stringDate: getFormatDate(doc.data().stringDate.toDate()),
+        };
+        setRidae(ridaeArray);
+      });
     dbService
       .collection(id)
       .orderBy("createdAt", "desc")
@@ -126,15 +128,12 @@ const Detail = ({ userObj }) => {
       <WriteComment userObj={userObj} name={id} getDate={getDate} />
       <CommentCon>
         {comments.map((comment) => (
-          <>
+          <div key={comment.id}>
             <Div>
-              <Comment
-                // key={}
-                commentObj={comment}
-              />
+              <Comment commentObj={comment} />
             </Div>
             <Hr />
-          </>
+          </div>
         ))}
       </CommentCon>
     </Container>
@@ -143,6 +142,7 @@ const Detail = ({ userObj }) => {
 
 const Where = styled.div`
   font-size: 3rem;
+  text-align: center;
 `;
 
 const LeftDiv = styled.div`
