@@ -53,7 +53,7 @@ const WriteComment = ({ userObj, getDate }) => {
       date: Date.now(),
       stringDate: new Date(),
     };
-    await dbService.collection("left").doc("prime").set(leftObj);
+    await dbService.collection("left").doc("prime").update(leftObj);
 
     const commentObj = {
       text: comment, //comment은 state인 comment의 value임
@@ -63,7 +63,7 @@ const WriteComment = ({ userObj, getDate }) => {
     await dbService
       .collection("prime")
       .doc(`${commentObj.createdAt}`)
-      .set(commentObj);
+      .update(commentObj);
 
     setComment(""); //빈 문자열로 돌아가게끔
     setLarge("");
