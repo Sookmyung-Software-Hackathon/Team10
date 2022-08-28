@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { dbService } from "../fbase";
 import Comment from "../components/Comment";
 import WriteComment from "../components/WriteComment";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 const Detail = ({ userObj }) => {
   const [large, setLarge] = useState("");
   const [medium, setMedium] = useState("");
@@ -11,26 +11,27 @@ const Detail = ({ userObj }) => {
 
   const [theDate, setTheDate] = useState("");
 
-//   const [num, setNum] = useState([]);
+  const [num, setNum] = useState([]);
 
   const [editing, setEditing] = useState(false);
-  const location=useLocation();
+  const location = useLocation();
 
   const toggleEditing = () => setEditing((prev) => !prev);
   useEffect(() => {
     console.log(location.state);
     dbService
-      .doc(`left/${location.state.id}`)
+      .doc(`left/prime`)
       .get()
       .then((doc) => {
-          var a= doc.data().stringDate.toDate();
-          setTheDate(getFormatDate(a))
-        })
+        var a = doc.data().stringDate.toDate();
+        setTheDate(getFormatDate(a));
+        setNum(doc.data());
+      })
       .catch((error) => {
         console.log("Error getting documents: ", error);
-    });
+      });
     dbService
-      .collection(location.state.id)
+      .collection("prime")
       .orderBy("createdAt", "desc")
       // .where("text",'!=',null)
       .onSnapshot((snapshot) => {
@@ -40,7 +41,7 @@ const Detail = ({ userObj }) => {
           ...doc.data(),
         }));
         setComments(commentArray);
-        //console.log(commentArray);
+        console.log(commentArray);
       });
   }, []);
 
@@ -68,7 +69,7 @@ const Detail = ({ userObj }) => {
       stringDate: new Date(),
     };
 
-    await dbService.collection("left").doc(location.state.id).update(leftObj);
+    await dbService.collection("left").doc("prime").update(leftObj);
 
     setLarge("");
     setMedium("");
@@ -82,8 +83,8 @@ const Detail = ({ userObj }) => {
     month = month >= 10 ? month : "0" + month; //month 두자리로 저장
     var day = date.getDate(); //d
     day = day >= 10 ? day : "0" + day; //day 두자리로 저장
-    return (year + "/" + month + "/" + day)
-  } 
+    return year + "/" + month + "/" + day;
+  }
 
   const getDate = (d) => {
     setTheDate(d);
@@ -91,7 +92,7 @@ const Detail = ({ userObj }) => {
 
   return (
     <Container>
-      <Where>{location.state.name}</Where>
+      <Where>프라임</Where>
       {editing ? (
         <Box>
           <Row>
@@ -117,12 +118,12 @@ const Detail = ({ userObj }) => {
       ) : (
         <LeftDiv>
           <Left>
-            대형 : {location.state.leftl}개 / 업데이트 날짜 : {theDate}
+            대형 : {num.l}개 / 업데이트 날짜 : {theDate}
             <br />
             <br />
-            중형 : {location.state.leftm}개 / 업데이트 날짜 : {theDate}
+            중형 : {num.m}개 / 업데이트 날짜 : {theDate}
           </Left>
-          <Btn onClick={toggleEditing}>수정</Btn>
+          <Btn onClick={toggleEditing}>업데이트</Btn>
         </LeftDiv>
       )}
       <WriteComment userObj={userObj} getDate={getDate} />
