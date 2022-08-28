@@ -5,11 +5,12 @@ import styled from "styled-components";
 const Container = styled.div`
   background-color: #aedafc;
   width: 95rem;
+  text-align: center;
   margin:auto;
 `;
 const Box = styled.div`
   margin: auto;
-  margin-top: 20vh;
+  margin-top: 2vh;
   margin-bottom: 3vh;
   width: 80rem;
   /* display: flex; */
@@ -31,6 +32,11 @@ const Btn=styled.div`
 const B=styled.span`
   font-weight: 700;
 `;
+const Img=styled.img`
+  width:40rem;
+  margin: auto;
+  margin-top: 25vh;
+`;
 
 const Auth = ({userObj}) => {
   const onSocialClick = async (event) => {
@@ -43,6 +49,7 @@ const Auth = ({userObj}) => {
   };
   return (
     <Container>
+      <Img src="./image/logo.png"/>
       <Box>
         로그인은 숙명 구글메일을 통해서 가능합니다.
         원활한 로그인을 위해 <B>인터넷 앱</B>을 이용해주시기 바랍니다.

@@ -1,7 +1,26 @@
 import React, { useEffect, useState } from "react";
 import AppRouter from "./Router";
 import { authService } from "../fbase";
-import { deleteUser } from "firebase/auth";
+import styled from "styled-components";
+// import { deleteUser } from "firebase/auth";
+const Img=styled.img`
+  width:50rem;
+  margin: auto;
+  text-align: center;
+  margin-top: 30vh;
+  animation: rotate_image 10s linear infinite;
+  transform-origin: 50% 50%;
+  @keyframes rotate_image {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+`;
+
+const Div= styled.div`
+text-align: center;
+`
+
 
 function App() {
   const [init, setInit] = useState(false);
@@ -56,7 +75,9 @@ function App() {
           userObj={userObj}
         />
       ) : (
-        "initializing..."
+        <Div>
+        <Img src="./image/logo.png"/>
+        </Div>
       )}
       <footer style={{fontSize:'4rem',position:'absolute',top:'90vh',left:'5rem'}}>&copy; {new Date().getFullYear()} nayangna</footer>
     </>
