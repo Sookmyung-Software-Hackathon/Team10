@@ -79,7 +79,7 @@ function App() {
         <Img src="./image/logo.png"/>
         </Div>
       )}
-      <footer style={{fontSize:'4rem',position:'absolute',top:'90vh',left:'5rem'}}>&copy; {new Date().getFullYear()} nayangna</footer>
+      <footer style={{fontSize:'4rem',marginTop:'5rem'}}>&copy; {new Date().getFullYear()} nayangna</footer>
     </>
   );
 }

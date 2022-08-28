@@ -169,7 +169,7 @@ const Row = styled.div`
 const Sub = styled.div`
   background-color: whitesmoke;
   margin: 1rem;
-  width: 9rem;
+  width: 10rem;
   font-size: 4rem;
 `;
 const Content = styled.input`
@@ -186,7 +186,9 @@ const Btn = styled.input`
   right: 2rem;
   top: 2rem;
   float: right;
-  border: 1px solid;
+  text-align: center;
+  border: 1px solid #fff;
+  color: white;
   cursor: pointer;
   background-color: #aedafc;
   border-radius: 10px;

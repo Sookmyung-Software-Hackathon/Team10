@@ -159,7 +159,7 @@ const Where = styled.div`
   font-size: 10rem;
   text-align: center;
   font-weight: 700;
-  margin-top: 10rem;
+  margin-top: 15rem;
 `;
 const Img=styled.img`
   width:20rem;
@@ -178,7 +178,7 @@ const Left = styled.div`
   font-size: 5rem;
   font-weight: 400;
   border-radius: 10px;
-  margin: 12rem auto 0 auto;
+  margin: 16rem auto 0 auto;
 `;
 
 const Btn = styled.button`
@@ -186,13 +186,14 @@ const Btn = styled.button`
   right: 2rem;
   top: -14rem;
   float: right;
-  border: 1px solid;
+  border: 1px solid #fff;
   border-radius: 10px;
   cursor: pointer;
   background-color: #aedafc;
   padding: 2rem;
   font-weight: 400;
   font-size: 4rem;
+  color:#fff;
 
 `;
 const CommentCon = styled.div`
@@ -219,8 +220,9 @@ const Hr = styled.hr`
 const Box = styled.div`
   position: relative;
   background-color: whitesmoke;
-  margin: 10rem 1rem;
+  margin: 16rem 1rem 9rem 1rem;
   border-radius: 10px;
+  padding: 3rem 0;
 `;
 const Row = styled.div`
   display: flex;
@@ -230,14 +232,14 @@ const Row = styled.div`
 const Sub = styled.div`
   background-color: whitesmoke;
   margin: 1rem;
-  font-size: 4rem;
+  font-size: 5rem;
 `;
 const Content = styled.input`
   border: none;
   outline-style: none;
   background-color: whitesmoke;
   width: fit-content;
-  font-size: 4rem;
+  font-size: 5rem;
 `;
 
 export default Detail;

@@ -57,7 +57,7 @@ const Home = () => {
             ))}
             <Board>
               {location===''?(
-                <Notice>지도에서 원하는 위치를 클릭해주세요</Notice>
+                <Notice>지도에서 원하는 위치를 클릭하세요</Notice>
               ):(
                 <Title>위치: {location}<br/>
                   중형: {numM} 개<br/>
@@ -67,6 +67,7 @@ const Home = () => {
             </Board>
           </Map>
           <Board1>
+            <Explain>상세정보는 하단의 건물명을 클릭하세요</Explain>
             <List>
               {list.map((each)=>(
                 <Each
@@ -115,6 +116,13 @@ const Container = styled.div`
   margin:auto;
   text-align: center;
 `;
+const Explain=styled.div`
+  font-size: 3rem;
+  font-weight: 700;
+  color: gray;
+  margin: 1rem 0;
+`;
+
 const Box = styled.div`
   display: flex;
   flex-direction: column;
@@ -153,7 +161,7 @@ const Board = styled.div`
   width: 80rem;
   background-color: white;
   margin: auto;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   border-radius: 10px;
   padding: 2rem 4rem;
 `;
