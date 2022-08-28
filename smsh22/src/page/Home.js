@@ -39,6 +39,7 @@ const Home = () => {
   return (
     <>
       <Container>
+        <Img src="./image/logo.png"/>
         <Box>
           <Map>
             <MapImg src="/image/naver_map.png" alt="사진 출처: NAVER"></MapImg>
@@ -81,6 +82,11 @@ const Home = () => {
     </>
   );
 };
+const Img=styled.img`
+  width:30rem;
+  margin: auto;
+  margin-top: 2rem;
+`;
 const Btn=styled.button`
   font-size: 4rem;
   padding: 1rem 2rem;
@@ -98,6 +104,7 @@ const List=styled.div`
   padding: 2rem 0;
   width: 80rem;
   display: grid;
+  text-align: left;
   grid-template-columns: repeat(2,40rem);
   row-gap: 2rem;
   /* background-color: white; */
@@ -106,6 +113,7 @@ const Container = styled.div`
   background-color: #aedafc;
   width: 95rem;
   margin:auto;
+  text-align: center;
 `;
 const Box = styled.div`
   display: flex;
@@ -114,6 +122,7 @@ const Box = styled.div`
 `;
 const Map = styled.div`
   position: relative;
+  text-align: left;
 `;
 const MapImg = styled.img`
   width: 80rem;

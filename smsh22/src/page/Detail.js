@@ -95,13 +95,13 @@ const Detail = ({ userObj }) => {
 
   return (
     <Container>
-      <Home
+      <Img src="./image/logo.png"
         onClick={() => {
           nav.push("/");
         }}
-      >
-        <FaHome />
-      </Home>
+      />
+        {/* <FaHome /> */}
+      {/* </Home> */}
       <Where>{ridae.name}</Where>
       {editing ? (
         <form id='update'>
@@ -159,25 +159,15 @@ const Where = styled.div`
   font-size: 10rem;
   text-align: center;
   font-weight: 700;
-  margin-top: 18rem;
+  margin-top: 10rem;
 `;
-
-const Home = styled.button`
+const Img=styled.img`
+  width:20rem;
   position: absolute;
   top: 5rem;
   left: 5rem;
-  float: right;
-  border: 1px solid;
-  border-radius: 10px;
   cursor: pointer;
-  background-color: #aedafc;
-  width: 13rem;
-  height: 13rem;
-  font-weight: 400;
-  font-size: 8rem;
-text-align: center;
 `;
-
 const LeftDiv = styled.div`
   position: relative;
 `;

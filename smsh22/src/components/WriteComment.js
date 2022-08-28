@@ -118,7 +118,7 @@ const WriteComment = ({ userObj, getDate, name }) => {
               <Sub>대형</Sub>
               <Content
                 type="number"
-                placeholder="대형 생리대 개수"
+                placeholder="대형 생리대 개수 (선택사항)"
                 value={large}
                 onChange={largeChange}
               />
@@ -127,7 +127,7 @@ const WriteComment = ({ userObj, getDate, name }) => {
               <Sub>중형</Sub>
               <Content
                 type="number"
-                placeholder="중형 생리대 개수"
+                placeholder="중형 생리대 개수 (선택사항)"
                 value={medium}
                 onChange={mediumChange}
               />
@@ -169,12 +169,14 @@ const Row = styled.div`
 const Sub = styled.div`
   background-color: whitesmoke;
   margin: 1rem;
+  width: 9rem;
   font-size: 4rem;
 `;
 const Content = styled.input`
   border: none;
   outline-style: none;
   background-color: whitesmoke;
+  min-width: 55rem;
   width: fit-content;
   font-size: 4rem;
 `;

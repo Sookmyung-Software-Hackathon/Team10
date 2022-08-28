@@ -58,7 +58,7 @@ function App() {
       ) : (
         "initializing..."
       )}
-      <footer style={{fontSize:'4rem',position:'absolute',top:'95vh',left:'5rem'}}>&copy; {new Date().getFullYear()} nayangna</footer>
+      <footer style={{fontSize:'4rem',position:'absolute',top:'90vh',left:'5rem'}}>&copy; {new Date().getFullYear()} nayangna</footer>
     </>
   );
 }
