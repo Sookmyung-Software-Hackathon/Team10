@@ -9,7 +9,7 @@ import Search from "../components/Search";
 const Home = () => {
   const [numM,setNumM]=useState();
   const [numL,setNumL]=useState();
-  const [location,setLocation]=useState();
+  const [location,setLocation]=useState('');
   const [list,setList]=useState([]);
   useEffect(()=>{
     dbService.collection('left')
@@ -52,20 +52,25 @@ const Home = () => {
                   top={each.top}
                 />
               </div>
-              
             ))}
             <Board>
-                <Title>위치: {location} / 중형: {numM}개 / 대형: {numL} 개 </Title>
+              {location===''?(
+                <Notice>지도에서 원하는 위치를 클릭해주세요</Notice>
+              ):(
+                <Title>위치: {location}<br/>
+                  중형: {numM}개<br/>
+                  대형: {numL} 개
+                </Title>
+              )}
             </Board>
           </Map>
           <Board>
             <List>
-              {/* <div> */}
-                {list.map((each)=>(
-                  <Each 
-                    key={each.id}
-                    list={each} 
-                  />
+              {list.map((each)=>(
+                <Each 
+                  key={each.id}
+                  list={each} 
+                />
               ))}
             </List>
           </Board>
@@ -76,9 +81,11 @@ const Home = () => {
 };
 
 const List=styled.div`
+  padding: 2rem 0;
   width: 80rem;
   display: grid;
   grid-template-columns: repeat(2,40rem);
+  row-gap: 2rem;
   /* background-color: white; */
 `;
 const Container = styled.div`
@@ -127,7 +134,13 @@ const Board = styled.div`
   border-radius: 10px;
   padding: 2rem 4rem;
 `;
-const Title = styled.div``;
+const Title = styled.div`
+  font-size: 3.5rem;
+`;
+const Notice = styled.div`
+  color: gray;
+  font-size: 3rem;
+`;
 
 
 export default Home;
