@@ -95,7 +95,7 @@ const Detail = ({ userObj }) => {
 
   return (
     <Container>
-      <Img src="./image/logo.png"
+      <Img src="./image/logo2.png"
         onClick={() => {
           nav.push("/");
         }}
@@ -132,24 +132,28 @@ const Detail = ({ userObj }) => {
       ) : (
         <LeftDiv>
           <Left>
-            대형 : {ridae.l}개 / 업데이트 날짜 : {ridae.stringDate}
-            <br />
-            <br />
-            중형 : {ridae.m}개 / 업데이트 날짜 : {ridae.stringDate}
+            대형 : {ridae.l}개 / 중형 : {ridae.m}개
+            <br/>
+            <br/>
+            업데이트 날짜 : {ridae.stringDate}
           </Left>
           <Btn onClick={toggleEditing}>업데이트</Btn>
         </LeftDiv>
       )}
-      <WriteComment userObj={userObj} name={id} getDate={getDate} />
       <CommentCon>
-        {comments.map((comment) => (
-          <div key={comment.id}>
-            <Div>
-              <Comment commentObj={comment} />
-            </Div>
-            <Hr />
-          </div>
-        ))}
+        <WriteComment userObj={userObj} name={id} getDate={getDate} />
+        {comments.length>0?(
+          comments.map((comment) => (
+            <div key={comment.id}>
+                <Hr/>
+                <Comment commentObj={comment} />
+            </div>
+          ))
+        ):(
+          <Div>
+              아직 댓글이 없습니다.
+          </Div>
+        )}
       </CommentCon>
     </Container>
   );
@@ -159,10 +163,10 @@ const Where = styled.div`
   font-size: 10rem;
   text-align: center;
   font-weight: 700;
-  margin-top: 15rem;
+  margin-top: 10rem;
 `;
 const Img=styled.img`
-  width:20rem;
+  width:22rem;
   position: absolute;
   top: 5rem;
   left: 5rem;
@@ -197,9 +201,10 @@ const Btn = styled.button`
 
 `;
 const CommentCon = styled.div`
-  width: 80%;
-  margin: 10rem auto;
-  padding: 1rem 8rem;
+  width: 100%;
+  margin:auto;
+  padding: 0 0 2rem ;
+  border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.05);
 `;
 
@@ -208,13 +213,15 @@ const Container = styled.div`
 `;
 
 const Div = styled.div`
-  margin: 2rem 5rem;
-  font-size: 4rem;
+  margin: 2rem 4rem 1rem;
+  padding: 1rem 2rem;
+  color: gray;
 `;
 
-const Hr = styled.hr`
-  border: 1px solid rgba(68, 68, 68, 0.2);
-  width: 100%;
+const Hr = styled.div`
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(68, 68, 68, 0.2);
+  width: 90%;
 `;
 
 const Box = styled.div`

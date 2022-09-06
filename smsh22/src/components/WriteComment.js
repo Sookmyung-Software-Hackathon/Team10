@@ -158,7 +158,7 @@ const WriteComment = ({ userObj, getDate, name }) => {
 const Box = styled.div`
   position: relative;
   background-color: whitesmoke;
-  margin: 10rem 1rem;
+  margin: 10rem 0 0;
   border-radius: 10px;
 `;
 const Row = styled.div`
@@ -169,7 +169,7 @@ const Row = styled.div`
 const Sub = styled.div`
   background-color: whitesmoke;
   margin: 1rem;
-  width: 10rem;
+  width: 11rem;
   font-size: 4rem;
 `;
 const Content = styled.input`
@@ -211,7 +211,7 @@ const ContentRepl = styled.textarea`
 const Repl = styled.div`
   background-color: whitesmoke;
   padding: 3rem;
-  margin: 10rem auto;
+  margin: 10rem auto 0;
   border-radius: 10px;
   text-align: center;
   font-size: 5rem;

@@ -79,7 +79,7 @@ function App() {
         </>
       ) : (
         <Div>
-        <Img src="./image/logo.png"/>
+        <Img src="./image/logo2.png"/>
         </Div>
       )}
     </>

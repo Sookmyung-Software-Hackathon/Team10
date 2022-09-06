@@ -41,7 +41,7 @@ const Home = () => {
   return (
     <>
       <Container>
-        <Img onClick={()=>window.location.replace('/')} src="./image/logo.png"/>
+        <Img onClick={()=>window.location.replace('/')} src="./image/logo2.png"/>
         <Box>
           <Map>
             <MapImg src="/image/naver_map1.png" alt="사진 출처: NAVER"></MapImg>
@@ -86,7 +86,7 @@ const Home = () => {
   );
 };
 const Img=styled.img`
-  width:30rem;
+  width:50rem;
   margin: auto;
   margin-top: 2rem;
 `;
@@ -138,23 +138,23 @@ const MapImg = styled.img`
   width: 80rem;
   border-radius: 10px;
   border: 2px solid;
-  margin: 3rem 5rem;
+  margin: 1rem 5rem 3rem;
 `;
 
 
 const pinlist=[
-  {id:'soon',left: 41, top:12},
-  {id:'myung',left: 22, top:26},
-  {id:'jin',left: 27, top:13},
-  {id:'sae',left: 24, top:35},
-  {id:'student',left: 47, top:33},
-  {id:'prime',left: 45, top:50},
-  {id:'flaza',left: 29, top:48},
-  {id:'science',left: 66, top:52},
-  {id:'library',left: 65, top:64},
-  {id:'art',left: 44.5, top:53},
-  {id:'music',left: 30, top:58},
-  {id:'medi',left: 38, top:69},
+  {id:'soon',left: 41, top:6},
+  {id:'myung',left: 22, top:21},
+  {id:'jin',left: 27, top:7},
+  {id:'sae',left: 24, top:30},
+  {id:'student',left: 47, top:27},
+  {id:'prime',left: 45, top:44},
+  {id:'flaza',left: 29, top:42},
+  {id:'science',left: 66, top:46},
+  {id:'library',left: 65, top:59},
+  {id:'art',left: 44.5, top:48},
+  {id:'music',left: 30, top:53},
+  {id:'medi',left: 38, top:64},
 
 ];
 

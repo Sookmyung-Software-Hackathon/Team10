@@ -49,9 +49,9 @@ const Auth = ({userObj}) => {
   };
   return (
     <Container>
-      <Img src="./image/logo.png"/>
+      <Img src="./image/logo2.png"/>
       <Box>
-        로그인은 숙명 구글메일을 통해서 가능합니다.
+        로그인은 구글메일을 통해서 가능합니다.
         원활한 로그인을 위해 <B>인터넷 앱</B>을 이용해주시기 바랍니다.
       </Box>
       <Btn onClick={onSocialClick}>로그인하기</Btn>

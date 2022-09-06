@@ -9,6 +9,8 @@ const Comment = ({ commentObj }) => {
   );
 };
 const Div = styled.div`
-  margin: 3rem 0;
+  margin: 1rem 4rem;
+  padding: 1rem 2rem;
+  font-size: 4rem;
 `;
 export default Comment;

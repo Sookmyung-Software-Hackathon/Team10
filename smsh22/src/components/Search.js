@@ -11,12 +11,12 @@ const EachPin = styled.div`
     cursor: pointer;
   }
   :focus svg {
-    color: #e795c4;
+    color: #00A1FF;
     opacity: 1;
   }
 
   :hover svg {
-    color: #e795c4;
+    color: #00A1FF;
     opacity: 1;
   }
 `;
