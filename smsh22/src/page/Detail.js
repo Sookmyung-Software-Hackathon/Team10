@@ -163,7 +163,7 @@ const Where = styled.div`
   font-size: 10rem;
   text-align: center;
   font-weight: 700;
-  margin-top: 10rem;
+  margin-top: 11rem;
 `;
 const Img=styled.img`
   width:22rem;
@@ -215,6 +215,7 @@ const Container = styled.div`
 const Div = styled.div`
   margin: 2rem 4rem 1rem;
   padding: 1rem 2rem;
+  font-size: 3rem;
   color: gray;
 `;
 
