@@ -44,7 +44,7 @@ const Home = () => {
         <Img onClick={()=>window.location.replace('/')} src="./image/logo.png"/>
         <Box>
           <Map>
-            <MapImg src="/image/naver_map.png" alt="사진 출처: NAVER"></MapImg>
+            <MapImg src="/image/naver_map1.png" alt="사진 출처: NAVER"></MapImg>
             {pinlist.map((each)=>(
               <div 
                 onClick={()=>onBtnClick(each.id)}
@@ -143,18 +143,18 @@ const MapImg = styled.img`
 
 
 const pinlist=[
-  {id:'soon',left: 40, top:11},
-  {id:'myung',left: 30, top:19},
-  {id:'jin',left: 33, top:12},
-  {id:'sae',left: 31, top:24},
-  {id:'student',left: 43.5, top:23},
-  {id:'prime',left: 42.5, top:32},
-  {id:'flaza',left: 34, top:31},
-  {id:'science',left: 56, top:33},
-  {id:'library',left: 53, top:39},
-  {id:'art',left: 42, top:34},
-  {id:'music',left: 34.5, top:36.5},
-  {id:'medi',left: 39, top:42},
+  {id:'soon',left: 41, top:12},
+  {id:'myung',left: 22, top:26},
+  {id:'jin',left: 27, top:13},
+  {id:'sae',left: 24, top:35},
+  {id:'student',left: 47, top:33},
+  {id:'prime',left: 45, top:50},
+  {id:'flaza',left: 29, top:48},
+  {id:'science',left: 66, top:52},
+  {id:'library',left: 65, top:64},
+  {id:'art',left: 44.5, top:53},
+  {id:'music',left: 30, top:58},
+  {id:'medi',left: 38, top:69},
 
 ];
 
