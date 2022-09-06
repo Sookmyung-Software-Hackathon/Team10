@@ -143,18 +143,18 @@ const MapImg = styled.img`
 
 
 const pinlist=[
-  {id:'soon',left: 41, top:6},
-  {id:'myung',left: 22, top:21},
-  {id:'jin',left: 27, top:7},
-  {id:'sae',left: 24, top:30},
-  {id:'student',left: 47, top:27},
-  {id:'prime',left: 45, top:44},
-  {id:'flaza',left: 29, top:42},
-  {id:'science',left: 66, top:46},
-  {id:'library',left: 65, top:59},
-  {id:'art',left: 44.5, top:48},
-  {id:'music',left: 30, top:53},
-  {id:'medi',left: 38, top:64},
+  {id:'soon',left: 41, top:4},
+  {id:'myung',left: 22, top:19},
+  {id:'jin',left: 27, top:5},
+  {id:'sae',left: 24, top:28},
+  {id:'student',left: 47, top:25},
+  {id:'prime',left: 45, top:42},
+  {id:'flaza',left: 29, top:40},
+  {id:'science',left: 66, top:44},
+  {id:'library',left: 65, top:57},
+  {id:'art',left: 44.5, top:46},
+  {id:'music',left: 30, top:51},
+  {id:'medi',left: 38, top:62},
 
 ];
 
