@@ -142,7 +142,7 @@ const WriteComment = ({ userObj, getDate, name }) => {
                 placeholder="댓글을 작성해주세요."
                 maxLength={120}
                 rows="2"
-                cols="35"
+                cols="30"
               />
             </Row>
             <Btn type="submit" value="&rarr;" />
