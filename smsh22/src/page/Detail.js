@@ -9,7 +9,9 @@ import { useLocation, useParams, useHistory } from "react-router-dom";
 const Detail = ({ userObj }) => {
   const nav = useHistory();
   const [large, setLarge] = useState("");
+  const [editedLarge, setEditedLarge] = useState("");
   const [medium, setMedium] = useState("");
+  const [editedMedium, setEditedMedium] = useState("");
   const [comments, setComments] = useState([]);
   const [theDate, setTheDate] = useState("");
   const { id } = useParams();
@@ -50,6 +52,7 @@ const Detail = ({ userObj }) => {
       target: { value },
     } = event;
     setLarge(value);
+    setEditedLarge(value);
   };
 
   const mediumChange = (event) => {
@@ -57,12 +60,15 @@ const Detail = ({ userObj }) => {
       target: { value },
     } = event;
     setMedium(value);
+    setEditedMedium(value);
   };
 
   const editClick = async (event) => {
-    // setTheDate(getFormatDate(theDate.toDate()));
     event.preventDefault();
-    if (medium==='' || large===''){
+    // setTheDate(getFormatDate(theDate.toDate()));
+    var an= window.confirm("수량을 업데이트 하시겠습니까?");
+    if (an){
+      if (medium==='' || large===''){
         alert('갯수를 정확히 입력해주세요');
     }
     else{
@@ -78,6 +84,11 @@ const Detail = ({ userObj }) => {
           toggleEditing();
           // setTheDate(getFormatDate(num.stringDate.toDate()));
     }
+    }else{
+
+    }
+
+   
   };
 
   function getFormatDate(date) {
@@ -141,10 +152,21 @@ const Detail = ({ userObj }) => {
         </LeftDiv>
       )}
       <CommentCon>
-        <WriteComment userObj={userObj} name={id} getDate={getDate} />
+        {/* <Thumbs>
+          👍
+        </Thumbs>        
+        <Thumbs>
+          👎
+        </Thumbs> */}
+        <WriteComment 
+          // userObj={userObj} 
+          name={id} 
+          getDate={getDate} />
         {comments.length>0?(
           comments.map((comment) => (
-            <div key={comment.id}>
+            <div 
+            // key={comment.id}
+            >
                 <Hr/>
                 <Comment commentObj={comment} />
             </div>
@@ -203,9 +225,13 @@ const Btn = styled.button`
 const CommentCon = styled.div`
   width: 100%;
   margin:auto;
+  
   padding: 0 0 2rem ;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.05);
+`;
+const Thumbs=styled.div`
+  
 `;
 
 const Container = styled.div`

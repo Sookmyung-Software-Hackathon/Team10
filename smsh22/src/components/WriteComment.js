@@ -75,7 +75,7 @@ const WriteComment = ({ userObj, getDate, name }) => {
     const commentObj = {
       text: comment, //comment은 state인 comment의 value임
       createdAt: Date.now(),
-      creatorId: userObj.uid,
+      // creatorId: userObj.uid,
     };
     await dbService
       .collection(name)

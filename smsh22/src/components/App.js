@@ -27,55 +27,57 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
   useEffect(() => {
-    authService.onAuthStateChanged((user) => {
-      if (user) {
-        setIsLoggedIn(true);
-        setUserObj({
-          uid: user.uid,
-          displayName: user.displayName,
-          updateProfile: (args) => user.updateProfile(args),
-        });
-        // var email = user.email;
-        // var emailIndex = email.indexOf("@") + 1;
-        // var emailform = email.substring(emailIndex);
-        // if (emailform !== "sookmyung.ac.kr") {
-        //   alert("숙명 구글메일로만 로그인 가능합니다.");
-        //   deleteUser(user);
-        //   setUserObj(null);
-        //   setIsLoggedIn(false);
-        //   authService.signOut().then(()=>{
-        //     console.log('로그아웃');
-        //   });
-        // }
-        if (user.displayName === null) {
-          const name = user.email.split("@")[0];
-          user.displayName = name;
-        }
-      } else {
-        setIsLoggedIn(false);
-        setUserObj(null);
-      }
-      setInit(true);
-    });
+    setInit(true);
+
+    // authService.onAuthStateChanged((user) => {
+    //   if (user) {
+    //     setIsLoggedIn(true);
+    //     setUserObj({
+    //       uid: user.uid,
+    //       displayName: user.displayName,
+    //       updateProfile: (args) => user.updateProfile(args),
+    //     });
+    //     // var email = user.email;
+    //     // var emailIndex = email.indexOf("@") + 1;
+    //     // var emailform = email.substring(emailIndex);
+    //     // if (emailform !== "sookmyung.ac.kr") {
+    //     //   alert("숙명 구글메일로만 로그인 가능합니다.");
+    //     //   deleteUser(user);
+    //     //   setUserObj(null);
+    //     //   setIsLoggedIn(false);
+    //     //   authService.signOut().then(()=>{
+    //     //     console.log('로그아웃');
+    //     //   });
+    //     // }
+    //     if (user.displayName === null) {
+    //       const name = user.email.split("@")[0];
+    //       user.displayName = name;
+    //     }
+    //   } else {
+    //     setIsLoggedIn(false);
+    //     setUserObj(null);
+    //   }
+    //   setInit(true);
+    // });
   }, []);
-  const refreshUser = () => {
-    const user = authService.currentUser;
-    setUserObj({
-      uid: user.uid,
-      displayName: user.displayName,
-      updateProfile: (args) => user.updateProfile(args),
-    });
-  };
+  // const refreshUser = () => {
+  //   const user = authService.currentUser;
+  //   setUserObj({
+  //     uid: user.uid,
+  //     displayName: user.displayName,
+  //     updateProfile: (args) => user.updateProfile(args),
+  //   });
+  // };
   return (
     <>
       {init ? (
         <>
         <AppRouter
-          refreshUser={refreshUser}
-          isLoggedIn={isLoggedIn}
-          userObj={userObj}
+          // refreshUser={refreshUser}
+          // isLoggedIn={isLoggedIn}
+          // userObj={userObj}
         />
-        <footer style={{fontSize:'4rem',marginTop:'5rem'}}>&copy; {new Date().getFullYear()} nayangna</footer>
+        <footer style={{position:'absolute',top:'95vh',fontSize:'4rem'}}>&copy; {new Date().getFullYear()} nayangna</footer>
         </>
       ) : (
         <Div>
