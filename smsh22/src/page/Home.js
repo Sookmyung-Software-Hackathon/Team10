@@ -8,12 +8,14 @@ const Home = () => {
   const [numM,setNumM]=useState();
   const [numL,setNumL]=useState();
   const [name,setName]=useState();
+  const [init,setInit]=useState(false);
   const [location,setLocation]=useState('');
   const [list,setList]=useState([]);
   const onLinkClick=()=>{
     window.open('https://pf.kakao.com/_ZxixlMs', '_blank');
   }
   useEffect(()=>{
+    setInit(true);
     dbService.collection('left')
     .onSnapshot((snapshot) => {
       const listArray = snapshot.docs.map((doc) => ({
@@ -45,7 +47,7 @@ const Home = () => {
         <Box>
           <Map>
             <MapImg src="/image/naver_map1.png" alt="사진 출처: NAVER"></MapImg>
-            {pinlist.map((each)=>(
+            {init && pinlist.map((each)=>(
               <div 
                 onClick={()=>onBtnClick(each.id)}
                 key={each.id}  
